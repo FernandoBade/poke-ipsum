@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "rxwpQygdq4IGR28LhI4JAu483ytM2rsawZihDzsqomXCMdb4mkNAz6FWwqsTwqO4c6LFVe0e1T5fYDdNyBtrOw==",
+  "dgSpecHash": "j9kGID9zx0hhYWLY01YNjFMQAPqAm5xYIjTYpO8GKgBe4q+fljb/1fkYjcOC8ramHNpIS8Na7d4HU3SEVsmZ8A==",
   "success": true,
-  "projectFilePath": "C:\\GitHub\\poke-ipsum\\server\\server.csproj",
+  "projectFilePath": "c:\\GitHub\\poke-ipsum\\server\\server.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\fbade\\.nuget\\packages\\microsoft.aspnetcore.openapi\\8.0.3\\microsoft.aspnetcore.openapi.8.0.3.nupkg.sha512",
     "C:\\Users\\fbade\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "C:\\Users\\fbade\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
+    "C:\\Users\\fbade\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\fbade\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
     "C:\\Users\\fbade\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
     "C:\\Users\\fbade\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.4.0\\swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
