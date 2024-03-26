@@ -1,4 +1,5 @@
 // No MVC tem um monte de funcionalidades para manupular API's, ai to testando pra ver se rola desse jeito
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PokeIpsum.Server.Models;
@@ -27,69 +28,53 @@ namespace PokeIpsum.Server.Controllers
         // Aqui setamos a rota como "Get"
         // Se fosse no Express, seria algo como: `router.get('/pokemon/:id')`
         [HttpGet("id/{id}")]
-        public async Task<IActionResult> GetPokemonPorId(int id)
+        public async Task<IActionResult> ObterPokemonPorId(int id)
         {
-            string endpointPokemon = $"{_pokeapiURL}/pokemon/{id}";
+            var endpointPokemon = $"{_pokeapiURL}pokemon/{id}";
+            var resposta = await _http.GetAsync(endpointPokemon);
 
-            HttpResponseMessage response = await _http.GetAsync(endpointPokemon);
+            if (resposta.IsSuccessStatusCode) // Não precisa verificar se era status 200, 201 ou outro de successo pq o pacote já tem o método.
 
-            // Não preciso verificar se era status 200, 201 ou outro de successo pq o pacote já tem o método.
-            if (response.IsSuccessStatusCode)
             {
-                string content = await response.Content.ReadAsStringAsync(); // Descobri que tem um método pra ler a resposta como string
-                return Ok(content); // Pra pra enviar o payload e ele já vai junto com o status OK (200, 201, etc) numa coisa só
+                var conteudo = await resposta.Content.ReadAsStringAsync();
+                var pokemon = JsonConvert.DeserializeObject<PokemonDTO>(conteudo);
+
+                if (pokemon != null && !string.IsNullOrEmpty(pokemon.Nome))
+                {
+                    return Ok(new PokemonDTO
+                    {
+                        Id = pokemon.Id,
+                        Nome = pokemon.Nome
+                    }); // Pra pra enviar o payload ele já vai junto com o status Ok (200, 201, etc) numa coisa só
+                }
+                else
+                {
+                    return BadRequest("Não foi possível obter os dados do Pokémon solicitado.");
+                }
             }
             else
             {
                 // Se der merda, retorna o status e o stack trace
-                return StatusCode((int)response.StatusCode, response.ReasonPhrase);
+                return StatusCode((int)resposta.StatusCode, "Falha na requisição/conexão.");
             }
         }
 
         [HttpGet("geracao/{id}")]
-        public async Task<IActionResult> GetPokemonPorGeracao(int id)
+        public async Task<IActionResult> ObterPokemonsPorGeracao(int id)
         {
-            string endpointGeracao = $"{_pokeapiURL}/generation/{id}";
-            HttpResponseMessage response = await _http.GetAsync(endpointGeracao);
+            var endpointGeracao = $"{_pokeapiURL}generation/{id}";
+            var resposta = await _http.GetAsync(endpointGeracao);
 
-            if (response.IsSuccessStatusCode)
+            if (resposta.IsSuccessStatusCode)
             {
-                string content = await response.Content.ReadAsStringAsync();
-                return Ok(content);
+                var conteudo = await resposta.Content.ReadAsStringAsync();
+                var geracao = JsonConvert.DeserializeObject<GeracaoDTO>(conteudo);
+                return Ok(geracao);
             }
             else
             {
-                return StatusCode((int)response.StatusCode, response.ReasonPhrase);
+                return StatusCode((int)resposta.StatusCode, "Falha na requisição/conexão.");
             }
         }
-
-        [HttpGet("tipo/{id}")]
-        public async Task<IActionResult> GetPokemonPorTipo(int id)
-        {
-            string endpointTipo = $"{_pokeapiURL}/type/{id}";
-            HttpResponseMessage response = await _http.GetAsync(endpointTipo);
-
-            if (response.IsSuccessStatusCode)
-            {
-                string content = await response.Content.ReadAsStringAsync();
-                // Altera aqui para deserializar para o tipo SimplePokemonDTO
-                var pokemonTipo = JsonConvert.DeserializeObject<PokemonDTO>(content);
-
-                // Verifica se a lista Tipo não é nula e contém elementos
-                if (pokemonTipo?.Tipo != null && pokemonTipo.Tipo.Any())
-                {
-                    return Ok(pokemonTipo);
-                }
-                else
-                {
-                    return NotFound("Não encontramos nenhum Pokemon para o tipo informado.");
-                }
-            }
-            else
-            {
-                return StatusCode((int)response.StatusCode, response.ReasonPhrase);
-            }
-        }
-
     }
 }
