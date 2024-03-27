@@ -6,17 +6,10 @@ using PokeIpsum.Server.Models;
 
 namespace PokeIpsum.Server.Controllers
 {
-    // Aqui aplico o atributo [ApiController], isso informa que aqui vai ser uma classe controller pra manimular API's
-    // Ela vem no pacote daquel .Mmc ali em cima
     [ApiController]
-
-    // Quando alguém acessar [URL]/pokeapi, será direcionado para este controller
-    // É tipo o arquivos Routes do Express.
     [Route("[controller]")]
     public class PokeAPIController : ControllerBase
     {
-        // Precisei de um cliente HTTP para fazer requisições para outras APIs
-        // Declarei como 'readonly' pq acho que só precisarei definir ele uma vez, no construtor
         private readonly HttpClient _http;
         private readonly string _pokeapiURL = "https://pokeapi.co/api/v2/";
 
@@ -24,16 +17,13 @@ namespace PokeIpsum.Server.Controllers
         {
             _http = http;
         }
-
-        // Aqui setamos a rota como "Get"
-        // Se fosse no Express, seria algo como: `router.get('/pokemon/:id')`
         [HttpGet("id/{id}")]
         public async Task<IActionResult> ObterPokemonPorId(int id)
         {
             var endpointPokemon = $"{_pokeapiURL}pokemon/{id}";
             var resposta = await _http.GetAsync(endpointPokemon);
 
-            if (resposta.IsSuccessStatusCode) // Não precisa verificar se era status 200, 201 ou outro de successo pq o pacote já tem o método.
+            if (resposta.IsSuccessStatusCode)
 
             {
                 var conteudo = await resposta.Content.ReadAsStringAsync();
@@ -45,7 +35,7 @@ namespace PokeIpsum.Server.Controllers
                     {
                         Id = pokemon.Id,
                         Nome = pokemon.Nome
-                    }); // Pra pra enviar o payload ele já vai junto com o status Ok (200, 201, etc) numa coisa só
+                    });
                 }
                 else
                 {
@@ -59,6 +49,24 @@ namespace PokeIpsum.Server.Controllers
             }
         }
 
+        [HttpGet("geracao")]
+        public async Task<IActionResult> ObterListaGeracoes()
+        {
+            var endpointGeracoes = $"{_pokeapiURL}generation/";
+            var resposta = await _http.GetAsync(endpointGeracoes);
+
+            if (resposta.IsSuccessStatusCode)
+            {
+                var conteudo = await resposta.Content.ReadAsStringAsync();
+                var listaGeracoes = JsonConvert.DeserializeObject<ListaGeracoesDTO>(conteudo);
+                return Ok(listaGeracoes);
+            }
+            else
+            {
+                return StatusCode((int)resposta.StatusCode, "Falha na requisição/conexão.");
+            }
+        }
+
         [HttpGet("geracao/{id}")]
         public async Task<IActionResult> ObterPokemonsPorGeracao(int id)
         {
@@ -68,8 +76,44 @@ namespace PokeIpsum.Server.Controllers
             if (resposta.IsSuccessStatusCode)
             {
                 var conteudo = await resposta.Content.ReadAsStringAsync();
-                var geracao = JsonConvert.DeserializeObject<GeracaoDTO>(conteudo);
-                return Ok(geracao);
+                var pokemonsDaGeracao = JsonConvert.DeserializeObject<GeracaoDTO>(conteudo);
+                return Ok(pokemonsDaGeracao);
+            }
+            else
+            {
+                return StatusCode((int)resposta.StatusCode, "Falha na requisição/conexão.");
+            }
+        }
+
+        [HttpGet("tipoelemento")]
+        public async Task<IActionResult> ObterListaTiposElementos()
+        {
+            var endpointTipoElemento = $"{_pokeapiURL}type/";
+            var resposta = await _http.GetAsync(endpointTipoElemento);
+
+            if (resposta.IsSuccessStatusCode)
+            {
+                var conteudo = await resposta.Content.ReadAsStringAsync();
+                var listaTipoElemento = JsonConvert.DeserializeObject<ListaGeracoesDTO>(conteudo);
+                return Ok(listaTipoElemento);
+            }
+            else
+            {
+                return StatusCode((int)resposta.StatusCode, "Falha na requisição/conexão.");
+            }
+        }
+
+        [HttpGet("tipoelemento/{id}")]
+        public async Task<IActionResult> ObterListaPokemonsPorTipoElemento(int id)
+        {
+            var endpointTipoElemento = $"{_pokeapiURL}type/{id}";
+            var resposta = await _http.GetAsync(endpointTipoElemento);
+
+            if (resposta.IsSuccessStatusCode)
+            {
+                var conteudo = await resposta.Content.ReadAsStringAsync();
+                var PokemonsPorTipoElemento = JsonConvert.DeserializeObject<TipoElementoDTO>(conteudo);
+                return Ok(PokemonsPorTipoElemento);
             }
             else
             {

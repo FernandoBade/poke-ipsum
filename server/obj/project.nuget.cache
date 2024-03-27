@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "j9kGID9zx0hhYWLY01YNjFMQAPqAm5xYIjTYpO8GKgBe4q+fljb/1fkYjcOC8ramHNpIS8Na7d4HU3SEVsmZ8A==",
+  "dgSpecHash": "IJO11JU4DbMb6KBrWMnDDlOUYsKAmovrfL92akpeKeZLjwho25m1SfD6C5YV7UuOQmF3EcDe19zWGiAt+1zFeQ==",
   "success": true,
-  "projectFilePath": "c:\\GitHub\\poke-ipsum\\server\\server.csproj",
+  "projectFilePath": "C:\\GitHub\\poke-ipsum\\server\\server.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\fbade\\.nuget\\packages\\microsoft.aspnetcore.openapi\\8.0.3\\microsoft.aspnetcore.openapi.8.0.3.nupkg.sha512",
     "C:\\Users\\fbade\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
