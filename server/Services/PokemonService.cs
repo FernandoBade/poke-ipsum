@@ -1,10 +1,10 @@
-using Newtonsoft.Json;
+using PokeIpsum;
 using PokeIpsum.Server.Models;
 
 public class PokemonService
 {
     private readonly HttpClient _http;
-    private readonly string _pokeapiURL = "https://pokeapi.co/api/v2/";
+    private readonly string _pokeapiURL = "https://pokeapi.co/api/v2/pokemon/";
 
     public PokemonService(HttpClient http)
     {
@@ -13,21 +13,6 @@ public class PokemonService
 
     public async Task<PokemonDTO> ObterPokemonPorId(int id)
     {
-        var endpointPokemon = $"{_pokeapiURL}pokemon/{id}";
-        var resposta = await _http.GetAsync(endpointPokemon);
-
-        if (resposta.IsSuccessStatusCode)
-        {
-            var conteudo = await resposta.Content.ReadAsStringAsync();
-            var pokemon = JsonConvert.DeserializeObject<PokemonDTO>(conteudo);
-            if (pokemon != null)
-            {
-                return pokemon;
-            }
-        }
-        else
-        {
-            throw new Exception("Falha na requisição à API do Pokémon.");
-        }
+        return await Commons.TratarRespostaAPI<PokemonDTO>(await _http.GetAsync($"{_pokeapiURL}{id}"));
     }
 }

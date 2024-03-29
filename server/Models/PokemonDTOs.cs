@@ -5,10 +5,9 @@ namespace PokeIpsum.Server.Models
     public class PokemonDTO
     {
         [JsonProperty("name")]
-        public int Id { get; set; }
+        public string Nome { get; set; } = string.Empty;
 
-        public string Nome { get; set; }
+        [JsonProperty("url")]
+        public string Url { get; set; } = string.Empty;
     }
-
 }
-

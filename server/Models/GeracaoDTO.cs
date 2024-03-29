@@ -2,33 +2,24 @@ using Newtonsoft.Json;
 
 namespace PokeIpsum.Server.Models
 {
-    public class GeracaoDTO
-    {
-        [JsonProperty("pokemon_species")]
-        public List<PokemonDaGeracaoDTO> PokemonsDaGeracao { get; set; } = [];
-    }
-
-    public class PokemonDaGeracaoDTO
-    {
-        [JsonProperty("name")]
-        public string Nome { get; set; }
-        
-        [JsonProperty("url")]
-        public string Url { get; set; }
-    }
-
     public class ListaGeracoesDTO
     {
         [JsonProperty("results")]
-        public List<DetalheGeracaoDTO> Geracoes { get; set; }
+        public List<Geracao> Geracoes { get; set; } = [];
     }
 
-    public class DetalheGeracaoDTO
+    public class Geracao
     {
         [JsonProperty("name")]
-        public string Nome { get; set; }
+        public string Nome { get; set; } = string.Empty;
 
         [JsonProperty("url")]
-        public string Url { get; set; }
+        public string Url { get; set; } = string.Empty;
+    }
+
+    public class GeracaoDTO
+    {
+        [JsonProperty("pokemon_species")]
+        public List<PokemonDTO> PokemonsPorGeracao { get; set; } = [];
     }
 }

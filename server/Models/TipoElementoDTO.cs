@@ -2,24 +2,39 @@ using Newtonsoft.Json;
 
 namespace PokeIpsum.Server.Models
 {
+    public class ListaTiposElementosDTO
+    {
+        [JsonProperty("results")]
+        public List<TipoElemento> TiposElementos { get; set; } = new List<TipoElemento>();
+    }
+
+    public class TipoElemento
+    {
+        [JsonProperty("name")]
+        public string Nome { get; set; } = string.Empty;
+
+        [JsonProperty("url")]
+        public string Url { get; set; } = string.Empty;
+    }
+
     public class TipoElementoDTO
     {
         [JsonProperty("pokemon")]
-        public List<PokemonPorTipoElemento> PokemonsPorTipoElemento { get; set; } = new List<PokemonPorTipoElemento>();
+        public List<PokemonPorTipoDTO> PokemonsPorTipoElemento { get; set; } = new List<PokemonPorTipoDTO>();
     }
 
-    public class PokemonPorTipoElemento
+    public class PokemonPorTipoDTO
     {
         [JsonProperty("pokemon")]
-        public PokemonPorTipoElementoDTO Pokemon { get; set; }
+        public PokemonInfo Pokemon { get; set; } = new PokemonInfo();
     }
 
-    public class PokemonPorTipoElementoDTO
+    public class PokemonInfo
     {
         [JsonProperty("name")]
-        public string Nome { get; set; }
-        
+        public string Nome { get; set; } = string.Empty;
+
         [JsonProperty("url")]
-        public string URL { get; set; }
+        public string Url { get; set; } = string.Empty;
     }
 }
