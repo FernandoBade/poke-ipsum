@@ -1,2 +1,5 @@
 [*.cs]
 
+
+# CS8603: Possível retorno de referência nula.
+dotnet_diagnostic.CS8603.severity = none

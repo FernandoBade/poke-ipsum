@@ -5,7 +5,7 @@ namespace PokeIpsum.Server.Models
     public class ListaTiposElementosDTO
     {
         [JsonProperty("results")]
-        public List<TipoElemento> TiposElementos { get; set; } = new List<TipoElemento>();
+        public List<TipoElemento> TiposElementos { get; set; } = [];
     }
 
     public class TipoElemento
@@ -13,28 +13,23 @@ namespace PokeIpsum.Server.Models
         [JsonProperty("name")]
         public string Nome { get; set; } = string.Empty;
 
-        [JsonProperty("url")]
-        public string Url { get; set; } = string.Empty;
     }
-
     public class TipoElementoDTO
     {
         [JsonProperty("pokemon")]
-        public List<PokemonPorTipoDTO> PokemonsPorTipoElemento { get; set; } = new List<PokemonPorTipoDTO>();
+        public List<PokemonTipoElemento> PokemonsPorTipoElemento { get; set; } = [];
     }
 
-    public class PokemonPorTipoDTO
+    public class PokemonTipoElemento
     {
         [JsonProperty("pokemon")]
-        public PokemonInfo Pokemon { get; set; } = new PokemonInfo();
+        public DetalhePokemon? Pokemon { get; set; }
     }
 
-    public class PokemonInfo
+    public class DetalhePokemon
     {
         [JsonProperty("name")]
         public string Nome { get; set; } = string.Empty;
-
-        [JsonProperty("url")]
-        public string Url { get; set; } = string.Empty;
     }
 }
+

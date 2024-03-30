@@ -6,8 +6,20 @@ namespace PokeIpsum.Server.Models
     {
         [JsonProperty("name")]
         public string Nome { get; set; } = string.Empty;
+    }
 
-        [JsonProperty("url")]
-        public string Url { get; set; } = string.Empty;
+    public class ListaPokemonDTO
+    {
+        [JsonProperty("count")]
+        public int Count { get; set; }
+
+        [JsonProperty("next")]
+        public string? Next { get; set; }
+
+        [JsonProperty("previous")]
+        public string? Previous { get; set; }
+
+        [JsonProperty("results")]
+        public required List<PokemonDTO> Results { get; set; }
     }
 }

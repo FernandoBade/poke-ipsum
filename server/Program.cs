@@ -6,10 +6,11 @@ using PokeIpsum.Server.Controllers;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpClient();
-builder.Services.AddHttpClient<PokeAPIController>();
-builder.Services.AddHttpClient<PokemonService>(); // Registra o serviço e o HttpClient associado
-builder.Services.AddHttpClient<GeracaoService>(); // Registra o serviço e o HttpClient associado
+builder.Services.AddHttpClient<PokeIpsumController>();
+builder.Services.AddHttpClient<PokemonService>();
+builder.Services.AddHttpClient<GeracaoService>();
 builder.Services.AddHttpClient<TipoElementoService>();
+builder.Services.AddMemoryCache();
 builder.Services.AddControllers();
 
 
@@ -17,6 +18,6 @@ var app = builder.Build();
 
 app.MapControllers();
 
-app.MapGet("/", () => "Poke-Ipsum está rodando...");
+app.MapGet("/", () => "Poke-Ipsum is online!");
 
 app.Run();

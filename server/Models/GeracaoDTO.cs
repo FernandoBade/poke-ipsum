@@ -12,9 +12,6 @@ namespace PokeIpsum.Server.Models
     {
         [JsonProperty("name")]
         public string Nome { get; set; } = string.Empty;
-
-        [JsonProperty("url")]
-        public string Url { get; set; } = string.Empty;
     }
 
     public class GeracaoDTO
