@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpClient();
 builder.Services.AddHttpClient<PokeIpsumController>();
+builder.Services.AddHttpClient<GeradorController>();
 builder.Services.AddHttpClient<PokemonService>();
 builder.Services.AddHttpClient<GeracaoService>();
 builder.Services.AddHttpClient<TipoElementoService>();
