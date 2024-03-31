@@ -7,8 +7,9 @@ public enum Modo
 
 public class OpcoesDTO
 {
+    public List<string> TiposElemento { get; set; } = new List<string>();
+    public List<string> Geracoes { get; set; } = new List<string>();
     public List<string> NomesPokemons { get; set; } = new List<string>();
     public int Quantidade { get; set; }
     public Modo Modo { get; set; }
-    public bool IniciarComPokeIpsumDolor { get; set; }
 }
