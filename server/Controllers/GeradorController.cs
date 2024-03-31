@@ -20,67 +20,79 @@ namespace PokeIpsum.Server.Controllers
             _tipoElementoService = tipoElementoService;
         }
 
-        [HttpGet("filtro")]
-        public async Task<IActionResult> AplicarFiltrosDoUsuario(
-            [FromQuery] string tiposElemento = "",
+        [HttpGet("pokeipsum")]
+        public async Task<IActionResult> BuscarPokemonsPorFiltroDoUsuario(
+            [FromQuery] string tiposElementos = "",
             [FromQuery] string geracoes = "",
             [FromQuery] int quantidade = 3,
-            [FromQuery] string modo = "PARAGRAFOS")
+            [FromQuery] string modo = "PARAGRAFO")
         {
-            var nomesPokemonsFiltrados = new List<string>();
-            var excecoes = new List<string> { "mr-mime", "mime-jr", "ho-oh", "porygon-z" };
-            var tiposElementoList = tiposElemento.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
-            var geracoesList = geracoes.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+            var excecoes = new HashSet<string> { "mr-mime", "mime-jr", "ho-oh", "porygon-z" };
+            var filtradosPorTipo = new HashSet<string>();
+            var filtradosPorGeracao = new HashSet<string>();
 
-            // Filtrando por tipo de elemento
-            if (tiposElementoList.Any())
+            if (!string.IsNullOrWhiteSpace(tiposElementos))
             {
+                var tiposElementoList = tiposElementos.Split(',', StringSplitOptions.RemoveEmptyEntries);
                 foreach (var tipoElemento in tiposElementoList)
                 {
                     var pokemonsPorTipoElemento = await _tipoElementoService!.ObterListaPokemonsPorNomeDoTipoElemento(tipoElemento);
-                    nomesPokemonsFiltrados.AddRange(pokemonsPorTipoElemento.PokemonsPorTipoElemento.Select(te =>
+                    foreach (var te in pokemonsPorTipoElemento.PokemonsPorTipoElemento)
                     {
                         var nomePokemon = te.Pokemon?.Nome ?? "";
-                        return excecoes.Contains(nomePokemon.ToLower()) ? nomePokemon : nomePokemon.Split('-')[0];
-                    }));
+                        if (!excecoes.Contains(nomePokemon.ToLower()))
+                        {
+                            nomePokemon = nomePokemon.Split('-')[0];
+                        }
+                        filtradosPorTipo.Add(nomePokemon);
+                    }
                 }
             }
 
-            // Filtrando por geração
-            if (geracoesList.Any())
+            if (!string.IsNullOrWhiteSpace(geracoes))
             {
+                var geracoesList = geracoes.Split(',', StringSplitOptions.RemoveEmptyEntries);
                 foreach (var geracao in geracoesList)
                 {
                     var pokemonsPorGeracao = await _geracaoService!.ObterPokemonsPorNomeDaGeracao(geracao);
-                    var nomesPorGeracao = pokemonsPorGeracao.PokemonsPorGeracao.Select(g =>
+                    foreach (var g in pokemonsPorGeracao.PokemonsPorGeracao)
                     {
                         var nomePokemon = g.Nome;
-                        return excecoes.Contains(nomePokemon.ToLower()) ? nomePokemon : nomePokemon.Split('-')[0];
-                    });
-
-                    // Interseção com tipos, se houver
-                    if (nomesPokemonsFiltrados.Any())
-                    {
-                        nomesPokemonsFiltrados = nomesPokemonsFiltrados.Intersect(nomesPorGeracao).ToList();
-                    }
-                    else
-                    {
-                        nomesPokemonsFiltrados.AddRange(nomesPorGeracao);
+                        if (!excecoes.Contains(nomePokemon.ToLower()))
+                        {
+                            nomePokemon = nomePokemon.Split('-')[0];
+                        }
+                        filtradosPorGeracao.Add(nomePokemon);
                     }
                 }
             }
 
-            // Se nenhum filtro for aplicado, buscar todos os Pokémon
-            if (!tiposElementoList.Any() && !geracoesList.Any())
+            var nomesPokemonsFiltrados = new HashSet<string>();
+
+            if (filtradosPorTipo.Any() && filtradosPorGeracao.Any())
             {
-                nomesPokemonsFiltrados = (await _pokemonService!.ObterTodosOsPokemons()).Select(p =>
-                {
-                    var nomePokemon = p.Nome;
-                    return excecoes.Contains(nomePokemon.ToLower()) ? nomePokemon : nomePokemon.Split('-')[0];
-                }).ToList();
+                nomesPokemonsFiltrados = new HashSet<string>(filtradosPorTipo.Intersect(filtradosPorGeracao));
+            }
+            else
+            {
+                nomesPokemonsFiltrados.UnionWith(filtradosPorTipo);
+                nomesPokemonsFiltrados.UnionWith(filtradosPorGeracao);
             }
 
-            // Verificando e ajustando a opção 'Modo'
+            if (!filtradosPorTipo.Any() && !filtradosPorGeracao.Any())
+            {
+                var todosPokemons = await _pokemonService!.ObterTodosOsPokemons();
+                foreach (var p in todosPokemons)
+                {
+                    var nomePokemon = p.Nome;
+                    if (!excecoes.Contains(nomePokemon.ToLower()))
+                    {
+                        nomePokemon = nomePokemon.Split('-')[0];
+                    }
+                    nomesPokemonsFiltrados.Add(nomePokemon);
+                }
+            }
+
             if (!Enum.TryParse(modo, true, out Modo modoEnum))
             {
                 return BadRequest("Modo inválido.");
@@ -88,7 +100,7 @@ namespace PokeIpsum.Server.Controllers
 
             var opcoes = new OpcoesDTO
             {
-                NomesPokemons = nomesPokemonsFiltrados.Distinct().ToList(),
+                NomesPokemons = nomesPokemonsFiltrados.ToList(),
                 Quantidade = quantidade,
                 Modo = modoEnum
             };
