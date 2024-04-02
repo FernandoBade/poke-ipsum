@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\GitHub\\poke-ipsum\\server\\server.csproj": {}
+    "C:\\GitHub\\poke-ipsum\\server\\server.csproj": {}
   },
   "projects": {
-    "c:\\GitHub\\poke-ipsum\\server\\server.csproj": {
+    "C:\\GitHub\\poke-ipsum\\server\\server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\GitHub\\poke-ipsum\\server\\server.csproj",
+        "projectUniqueName": "C:\\GitHub\\poke-ipsum\\server\\server.csproj",
         "projectName": "server",
-        "projectPath": "c:\\GitHub\\poke-ipsum\\server\\server.csproj",
+        "projectPath": "C:\\GitHub\\poke-ipsum\\server\\server.csproj",
         "packagesPath": "C:\\Users\\fbade\\.nuget\\packages\\",
-        "outputPath": "c:\\GitHub\\poke-ipsum\\server\\obj\\",
+        "outputPath": "C:\\GitHub\\poke-ipsum\\server\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\fbade\\AppData\\Roaming\\NuGet\\NuGet.Config",
