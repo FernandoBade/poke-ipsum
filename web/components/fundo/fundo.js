@@ -5,7 +5,7 @@ export default function Fundo() {
 
         <video autoPlay muted loop className="absolute w-full h-full object-cover">
           <source src="../video/bg.mp4" type="video/mp4" />
-          <img src="../video/bg.png" alt="Poké Ipsum" />
+          <img src="../img/bg.png" alt="Poké Ipsum" />
         </video>
       </div>
     );
