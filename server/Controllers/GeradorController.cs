@@ -24,7 +24,7 @@ namespace PokeIpsum.Server.Controllers
         public async Task<IActionResult> BuscarPokemonsPorFiltroDoUsuario(
             [FromQuery] string tiposElementos = "",
             [FromQuery] string geracoes = "",
-            [FromQuery] int quantidade = 3,
+            [FromQuery] int quantidade = 5,
             [FromQuery] string modo = "PARAGRAFO")
         {
             var excecoes = new HashSet<string> { "mr-mime", "mime-jr", "ho-oh", "porygon-z" };
@@ -95,7 +95,7 @@ namespace PokeIpsum.Server.Controllers
 
             if (!Enum.TryParse(modo, true, out Modo modoEnum))
             {
-                return BadRequest("Modo inválido.");
+                return BadRequest("Invalid mode. You must choose between PARAGRAPH (PARAGRAFO), SENTENCE (FRASE), or WORD (PALAVRA).");
             }
 
             var opcoes = new OpcoesDTO
@@ -164,7 +164,7 @@ namespace PokeIpsum.Server.Controllers
                     break;
 
                 default:
-                    throw new ArgumentException("Modo inválido.");
+                    throw new ArgumentException("Invalid mode. You must choose between PARAGRAPH (PARAGRAFO), SENTENCE (FRASE), or WORD (PALAVRA).");
             }
 
             return resultados;

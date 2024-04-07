@@ -13,14 +13,14 @@ namespace PokeIpsum
 
                 if (resultado == null)
                 {
-                    throw new ArgumentNullException(nameof(resultado), $"A resposta da API não retornou nenhum dado.");
+                    throw new ArgumentNullException(nameof(resultado), $"The PokéAPI response returned no data.");
                 }
 
                 return resultado;
             }
             else
             {
-                throw new HttpRequestException($"Falha na requisição à API. Status: {resposta.StatusCode}. Mensagem: {resposta.ReasonPhrase}");
+                throw new HttpRequestException($"Request to the PokéAPI failed. Status: {resposta.StatusCode}. Message: {resposta.ReasonPhrase}");
             }
         }
     }

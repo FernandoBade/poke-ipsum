@@ -1,55 +1,84 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Listbox } from '@headlessui/react';
-
-const tiposElementos = [
-    { id: 1, name: 'All types' },
-    { id: 2, name: 'Fire' },
-    { id: 3, name: 'Water' },
-    { id: 4, name: 'Grass' },
-];
-
-const geracoes = [
-    { id: 1, name: 'Generation I' },
-    { id: 2, name: 'Generation II' },
-    { id: 3, name: 'Generation III' },
-];
+import obterTiposElementos, { obterGeracoes } from '/utils/pokeipsumAPI';
 
 export default function Formulario() {
-    const [tiposElementosSelecionados, setTiposElementoSelecionados] = useState([tiposElementos[0]]);
-    const [geracoesSelecionadas, setGeracoesSelecionadas] = useState([geracoes[0]]);
+    const [tiposElementos, setTiposElementos] = useState([]);
+    const [tiposElementosSelecionados, setTiposElementoSelecionados] = useState([]);
+    const [geracoes, setGeracoes] = useState([]);
+    const [geracoesSelecionadas, setGeracoesSelecionadas] = useState([]);
+
+    useEffect(() => {
+        obterTiposElementos().then(dados => {
+            setTiposElementos(dados);
+            setTiposElementoSelecionados([dados[0]]);
+        }).catch(error => console.error(error));
+
+        obterGeracoes().then(dados => {
+            setGeracoes(dados);
+            setGeracoesSelecionadas([dados[1]]);
+        }).catch(error => console.error(error));
+    }, []);
 
     const handleTiposElementosChange = (opcoesSelecionadas) => {
-        const isAllTypesBeingSelected = opcoesSelecionadas.some(opcao => opcao.name === 'All types') && !tiposElementosSelecionados.some(opcao => opcao.name === 'All types');
+        const allTypesSelecionado = opcoesSelecionadas.some(opcao => opcao.name === 'All types') && !tiposElementosSelecionados.some(opcao => opcao.name === 'All types');
 
-        if (isAllTypesBeingSelected) {
+        if (allTypesSelecionado) {
             setTiposElementoSelecionados([tiposElementos[0]]);
         } else {
             if (tiposElementosSelecionados.some(opcao => opcao.name === 'All types') && opcoesSelecionadas.length > 1) {
-                const newSelection = opcoesSelecionadas.filter(opcao => opcao.name !== 'All types');
-                setTiposElementoSelecionados(newSelection);
+                const novaSelecao = opcoesSelecionadas.filter(opcao => opcao.name !== 'All types');
+                setTiposElementoSelecionados(novaSelecao);
             } else {
                 setTiposElementoSelecionados(opcoesSelecionadas);
             }
         }
     };
 
+    const handleGeracoesChange = (opcoesSelecionadas) => {
+        const allGenerationsSelecionado = opcoesSelecionadas.some(opcao => opcao.name === 'All Generations');
+        const selecaoAnteriorAllgenerations = geracoesSelecionadas.some(opcao => opcao.name === 'All Generations');
+
+        if (allGenerationsSelecionado && !selecaoAnteriorAllgenerations) {
+            setGeracoesSelecionadas([geracoes.find(g => g.name === 'All Generations')]);
+        } else if (selecaoAnteriorAllgenerations && opcoesSelecionadas.length > 1) {
+            const novaSelecao = opcoesSelecionadas.filter(opcao => opcao.name !== 'All Generations');
+            setGeracoesSelecionadas(novaSelecao);
+        } else {
+            setGeracoesSelecionadas(opcoesSelecionadas);
+        }
+    };
+
+    const handleBotao = () => {
+        const opcaoSelecionada = document.querySelector('input[name="option"]:checked').value;
+        const quantidade = document.getElementById('quantity').value;
+
+        console.log("Opção selecionada:", opcaoSelecionada);
+        console.log("Tipos de elementos selecionados:", tiposElementosSelecionados);
+        console.log("Gerações selecionadas:", geracoesSelecionadas);
+        console.log("Quantidade:", quantidade);
+    };
+
     return (
         <>
             <div>
-                <form className="space-y-4">
-                    <div>
+                <form className="space-y-4" onSubmit={(e) => {
+                    e.preventDefault();
+                    handleBotao();
+                }}>
+                    <div id="radioButtons">
                         <p className="mb-6 font-bold text-center index-100 text-md text-cor-amarelo">Choose your options:</p>
                         <div className="flex justify-between mb-6">
                             <label htmlFor="paragraphs" className="cursor-pointer">
-                                <input type="radio" id="paragraphs" name="option" value="paragraphs" className="mr-2" defaultChecked />
+                                <input type="radio" id="paragraphs" name="option" value="PARAGRAFO" className="mr-2" defaultChecked />
                                 Paragraphs
                             </label>
                             <label htmlFor="sentences" className="cursor-pointer">
-                                <input type="radio" id="sentences" name="option" value="sentences" className="mr-2" />
+                                <input type="radio" id="sentences" name="option" value="FRASE" className="mr-2" />
                                 Sentences
                             </label>
                             <label htmlFor="words" className="cursor-pointer">
-                                <input type="radio" id="words" name="option" value="words" className="mr-2" />
+                                <input type="radio" id="words" name="option" value="PALAVRA" className="mr-2" />
                                 Words
                             </label>
                         </div>
@@ -90,7 +119,7 @@ export default function Formulario() {
                         )}
                     </Listbox>
 
-                    <Listbox value={geracoesSelecionadas} onChange={setGeracoesSelecionadas} multiple>
+                    <Listbox value={geracoesSelecionadas} onChange={handleGeracoesChange} multiple>
                         {({ open }) => (
                             <>
                                 <Listbox.Label className="block mb-2 font-bold text-sm text-cor-offwhite">GENERATION</Listbox.Label>
@@ -128,11 +157,11 @@ export default function Formulario() {
                     <div className="flex items-end space-x-4">
                         <div className="w-1/5">
                             <label htmlFor="quantity" className="block mb-2 font-bold text-sm text-cor-offwhite">QUANTITY</label>
-                            <input type="text" maxLength={2} defaultValue={3} id="quantity" name="quantity" className="w-full bg-cor-offwhite shadow-lg text-sm p-2 rounded-md text-cor-marrom" />
+                            <input type="text" maxLength={2} defaultValue={5} id="quantity" name="quantity" className="w-full bg-cor-offwhite shadow-lg text-sm p-2 rounded-md text-cor-marrom" />
                         </div>
 
                         <div className="w-4/5">
-                            <button type="button" className="w-full bg-cor-amarelo bg-opacity-90 hover:bg-cor-amarelo hover:shadow-lg transition-all font-bold py-2 px-4 rounded-md text-sm text-cor-marrom">
+                            <button type="submit" className="w-full bg-cor-amarelo bg-opacity-90 hover:bg-cor-amarelo hover:shadow-lg transition-all font-bold py-2 px-4 rounded-md text-sm text-cor-marrom">
                                 GENERATE POKÉ IPSUM
                             </button>
                         </div>

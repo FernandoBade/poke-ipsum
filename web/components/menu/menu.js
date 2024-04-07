@@ -7,7 +7,7 @@ export default function MenuLateral() {
                 <div className="logo">
                     <img src="../../img/logo.png" alt="Logotipo" className="ml-2 pt-4 w-auto" />
                 </div>
-                <h2 className="text-sm text-center text-cor-amarelo font-bold">Your design journey, one Pokémon at a time!</h2>
+                <h2 className="text-sm text-center text-cor-amarelo font-bold">Your design journey, one Pokémon at time!</h2>
                 <hr className="my-6" />
                 <Formulario />
                 <hr className="my-8" />

@@ -41,6 +41,20 @@ namespace PokeIpsum.Server.Controllers
             }
         }
 
+        [HttpGet("obterGeracoes")]
+        public async Task<IActionResult> ObterGeracoes()
+        {
+            try
+            {
+                var geracoes = await _geracaoService.ObterListaGeracoes();
+                return Ok(geracoes);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("geracao/{idOuNome?}")]
         public async Task<IActionResult> ObterPokemonsPorGeracao(string? IdOuNome)
         {
@@ -64,7 +78,21 @@ namespace PokeIpsum.Server.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
+
+        [HttpGet("obterTiposElementos")]
+        public async Task<IActionResult> ObterTiposElementos()
+        {
+            try
+            {
+                var tiposElementos = await _tipoElementoService.ObterListaTiposElementos();
+                return Ok(tiposElementos);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("tipoelemento/{idOuNome?}")]
         public async Task<IActionResult> ObterPokemonsPorTipoElemento(string? IdOuNome)
         {
