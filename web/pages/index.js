@@ -1,4 +1,4 @@
-import MenuLateral from '../components/menu/menu.js';
+import Menu from '../components/menu/menu.js';
 import Fundo from '../components/fundo/fundo.js';
 
 export default function Index() {
@@ -6,7 +6,7 @@ export default function Index() {
         <div className="relative">
             <main className="">
                 <Fundo />
-                <MenuLateral />
+                <Menu />
 
             </main>
         </div>
