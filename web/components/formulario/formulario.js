@@ -9,6 +9,7 @@ export default function Formulario() {
     const [tiposElementosSelecionados, setTiposElementoSelecionados] = useState([]);
     const [geracoes, setGeracoes] = useState([]);
     const [geracoesSelecionadas, setGeracoesSelecionadas] = useState([]);
+    const [quantidade, setQuantidade] = useState('5');
 
     useEffect(() => {
         obterTiposElementos().then(dados => {
@@ -49,6 +50,18 @@ export default function Formulario() {
         } else {
             setGeracoesSelecionadas(opcoesSelecionadas);
         }
+    };
+
+    const handleQuantidadeChange = (e) => {
+        setQuantidade(e.target.value);
+    };
+
+    const validarQuantidade = () => {
+        let value = parseInt(quantidade, 10);
+        if (isNaN(value) || value < 1) {
+            value = 1;
+        }
+        setQuantidade(value.toString().padStart(1));
     };
 
     const handleBotao = () => {
@@ -101,7 +114,7 @@ export default function Formulario() {
                         {({ open }) => (
                             <>
                                 <div className='flex mt-[1.5rem!important]'>
-                                    <Listbox.Label className="flex font-bold text-sm text-cor-offwhite">TYPE:</Listbox.Label>
+                                    <Listbox.Label className="mb-2 flex font-bold text-sm text-cor-offwhite">TYPE:</Listbox.Label>
                                     <Popover className="relative ml-1">
                                         {({ open }) => (
                                             <>
@@ -151,15 +164,15 @@ export default function Formulario() {
                         {({ open }) => (
                             <>
                                 <div className='flex mt-[1rem!important]'>
-                                    <Listbox.Label className="font-bold text-sm text-cor-offwhite">GENERATION:</Listbox.Label>
+                                    <Listbox.Label className="mb-2 font-bold text-sm text-cor-offwhite">GENERATION:</Listbox.Label>
                                     <Popover className="relative ml-1 focus:outline-none">
                                         {({ open }) => (
                                             <>
-                                                <Popover.Button className="active:outline-nome active:border-none hover:scale-110 transition-all ease-in-out">
+                                                <Popover.Button className="hover:scale-110 transition-all ease-in-out">
                                                     <ChatBubbleLeftEllipsisIcon className="h-4 w-4 text-cor-offwhite" />
                                                 </Popover.Button>
 
-                                                <Popover.Panel className="absolute shadow-2xl z-20 font-thin left-full w-[250px] text-sm translate-y-[-70px] transition-all ease-in-out text-cor-offwhite p-4 ml-2 bg-cor-marrom rounded-md opacity-95">
+                                                <Popover.Panel className="absolute shadow-2xl z-30 font-thin left-full w-[250px] text-sm translate-y-[-70px] transition-all ease-in-out text-cor-offwhite p-4 ml-2 bg-cor-marrom rounded-md opacity-95">
                                                     For Pokémon variants such as Mega, Gigantamax, or special editions, only their original names will be displayed.
                                                 </Popover.Panel>
                                             </>
@@ -201,7 +214,7 @@ export default function Formulario() {
                     <div className="flex items-end mt-[1rem!important] space-x-4">
                         <div className="w-1/5">
                             <label htmlFor="quantity" className="block mb-2 font-bold text-sm text-cor-offwhite">QUANTITY:</label>
-                            <input type="text" maxLength={2} defaultValue={5} id="quantity" name="quantity" className="w-full bg-cor-offwhite shadow-lg text-sm p-2 rounded-md text-cor-marrom" />
+                            <input type="text" maxLength={2} value={quantidade} onChange={handleQuantidadeChange} onBlur={validarQuantidade} id="quantity" name="quantity" className="w-full bg-cor-offwhite shadow-lg text-sm p-2 rounded-md text-cor-marrom" />
                         </div>
 
                         <div className="w-4/5">
