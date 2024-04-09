@@ -7,9 +7,9 @@ export default function Menu() {
     const [mostrarAlerta, setMostrarAlerta] = useState(false);
     const handleAlerta = () => setMostrarAlerta(true);
     return (
-        <div className="fixed top-0 left-0 h-full w-[385px] bg-cor-carvao bg-opacity-90 text-cor-offwhite z-10 shadow-lg flex flex-col justify-between">
+        <div className="fixed top-0 left-0 h-full w-[385px] bg-cor-carvao bg-opacity-90 text-cor-offwhite z-10 flex flex-col justify-between drop-shadow-[0_25px_6px_rgba(0,0,0,0.55)]">
             {mostrarAlerta && (
-                <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
+                <div className="  fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
                     <div className="max-w-[385px] bg-cor-offwhite text-cor-marrom p-4 rounded-lg shadow-lg text-center text-sm">
                         <div className="mb-2 font-bold text-cor-laranja text-lg">Poké Ipsum - Version 1.0 - April/2024</div>
                         <hr className="my-2 bg-cor-marrom" />

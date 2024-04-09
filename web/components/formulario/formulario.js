@@ -218,7 +218,7 @@ export default function Formulario() {
                         </div>
 
                         <div className="w-4/5">
-                            <button type="submit" className="w-full bg-cor-amarelo bg-opacity-90 transition-all py-2 px-4 duration-150 rounded-md text-sm text-cor-marrom font-bold hover:bg-cor-amarelo hover:shadow-2xl hover:transition-all hover:ease-in-out hover:duration-150 hover:border-cor-amarelo">
+                            <button type="submit" className="w-full bg-cor-amarelo transition-all py-2 px-4 duration-150 rounded-md text-sm text-cor-marrom font-bold hover:bg-cor-amarelo hover:shadow-2xl hover:transition-all hover:ease-in-out hover:duration-150 hover:border-cor-amarelo hover:bg-opacity-90">
                                 GENERATE POKÉ IPSUM
                             </button>
                         </div>
