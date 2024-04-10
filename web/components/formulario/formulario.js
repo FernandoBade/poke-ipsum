@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import Display from '../display/display';
 import { Listbox, RadioGroup, Popover } from '@headlessui/react';
-import obterTiposElementos, { obterGeracoes } from '/utils/pokeipsumAPI';
 import { ChatBubbleLeftEllipsisIcon } from '@heroicons/react/24/solid';
+import obterTiposElementos, { obterGeracoes } from '/utils/pokeipsumAPI';
+
 
 export default function Formulario() {
     const [opcaoSelecionada, setOpcaoSelecionada] = useState("PARAGRAFO");
@@ -10,6 +12,8 @@ export default function Formulario() {
     const [geracoes, setGeracoes] = useState([]);
     const [geracoesSelecionadas, setGeracoesSelecionadas] = useState([]);
     const [quantidade, setQuantidade] = useState('5');
+    const [mostrarOffcanvas, setMostrarOffcanvas] = useState(false);
+
 
     useEffect(() => {
         obterTiposElementos().then(dados => {
@@ -71,6 +75,11 @@ export default function Formulario() {
         console.log("Tipos de elementos selecionados:", tiposElementosSelecionados);
         console.log("Gerações selecionadas:", geracoesSelecionadas);
         console.log("Quantidade:", quantidade);
+        setMostrarOffcanvas(true);
+    };
+
+    const toggleOffcanvas = (status) => {
+        setMostrarOffcanvas(status);
     };
 
     return (
@@ -218,13 +227,14 @@ export default function Formulario() {
                         </div>
 
                         <div className="w-4/5">
-                            <button type="submit" className="w-full bg-cor-amarelo transition-all py-2 px-4 duration-150 rounded-md text-sm text-cor-marrom font-bold hover:bg-cor-amarelo hover:shadow-2xl hover:transition-all hover:ease-in-out hover:duration-150 hover:border-cor-amarelo hover:bg-opacity-90">
+                            <button type="submit" className="w-full bg-cor-amarelo transition-all py-2 px-4 duration-150 rounded-md text-sm text-cor-marrom font-bold hover:bg-cor-amarelo hover:box-shadow-2xl hover:transition-all hover:ease-in-out hover:duration-150 hover:border-cor-amarelo hover:text-cor-laranja">
                                 GENERATE POKÉ IPSUM
                             </button>
                         </div>
                     </div>
                 </form>
             </div >
+            <Display dados={['Resultado 1', 'Resultado 2']} mostrarOffcanvas={mostrarOffcanvas} toggleOffcanvas={toggleOffcanvas} />
         </>
     );
 }

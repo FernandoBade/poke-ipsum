@@ -25,7 +25,6 @@ export default function Menu() {
                 </div>
             )}
 
-
             <div className="absolute top-4 right-4">
                 <InformationCircleIcon className="h-6 w-6 text-cor-amarelo cursor-pointer hover:scale-105 transition-all ease-in-out" onClick={handleAlerta} />
             </div>
