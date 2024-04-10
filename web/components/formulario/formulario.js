@@ -1,9 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import Display from '../display/display';
+import obterTiposElementos, { obterGeracoes } from '/utils/pokeipsumAPI';
 import { Listbox, RadioGroup, Popover } from '@headlessui/react';
 import { ChatBubbleLeftEllipsisIcon } from '@heroicons/react/24/solid';
-import obterTiposElementos, { obterGeracoes } from '/utils/pokeipsumAPI';
 
+const retornoDadosMockup = [
+    "Farfetchd dodrio spearow ditto pidgey dodrio pidgeotto fearow. Persian tauros chansey meowth chansey. Meowth raticate pidgey wigglytuff rattata. Pidgey snorlax tauros meowth tauros persian. Jigglypuff farfetchd meowth lickitung tauros ditto porygon doduo.",
+    "Rattata jigglypuff wigglytuff spearow chansey doduo. Chansey kangaskhan lickitung persian spearow tauros meowth pidgeotto. Jigglypuff dodrio dodrio doduo wigglytuff ditto. Lickitung snorlax wigglytuff spearow eevee chansey.",
+    "Fearow snorlax meowth wigglytuff meowth porygon ditto persian. Kangaskhan pidgeot meowth meowth pidgeot. Raticate jigglypuff persian snorlax ditto farfetchd chansey. Wigglytuff farfetchd snorlax persian raticate pidgey.",
+    "Farfetchd dodrio spearow ditto pidgey dodrio pidgeotto fearow. Persian tauros chansey meowth chansey. Meowth raticate pidgey wigglytuff rattata. Pidgey snorlax tauros meowth tauros persian. Jigglypuff farfetchd meowth lickitung tauros ditto porygon doduo.",
+    "Rattata jigglypuff wigglytuff spearow chansey doduo. Chansey kangaskhan lickitung persian spearow tauros meowth pidgeotto. Jigglypuff dodrio dodrio doduo wigglytuff ditto. Lickitung snorlax wigglytuff spearow eevee chansey.",
+    "Fearow snorlax meowth wigglytuff meowth porygon ditto persian. Kangaskhan pidgeot meowth meowth pidgeot. Raticate jigglypuff persian snorlax ditto farfetchd chansey. Wigglytuff farfetchd snorlax persian raticate pidgey.",
+    "Dodrio raticate rattata ditto snorlax tauros rattata ditto. Snorlax kangaskhan wigglytuff kangaskhan ditto pidgeotto. Eevee pidgey raticate ditto pidgey raticate farfetchd. Fearow eevee chansey chansey snorlax meowth kangaskhan.",
+    "Farfetchd dodrio spearow ditto pidgey dodrio pidgeotto fearow. Persian tauros chansey meowth chansey. Meowth raticate pidgey wigglytuff rattata. Pidgey snorlax tauros meowth tauros persian. Jigglypuff farfetchd meowth lickitung tauros ditto porygon doduo.",
+    "Rattata jigglypuff wigglytuff spearow chansey doduo. Chansey kangaskhan lickitung persian spearow tauros meowth pidgeotto. Jigglypuff dodrio dodrio doduo wigglytuff ditto. Lickitung snorlax wigglytuff spearow eevee chansey.",
+    "Fearow snorlax meowth wigglytuff meowth porygon ditto persian. Kangaskhan pidgeot meowth meowth pidgeot. Raticate jigglypuff persian snorlax ditto farfetchd chansey. Wigglytuff farfetchd snorlax persian raticate pidgey.",
+    "Dodrio raticate rattata ditto snorlax tauros rattata ditto. Snorlax kangaskhan wigglytuff kangaskhan ditto pidgeotto. Eevee pidgey raticate ditto pidgey raticate farfetchd. Fearow eevee chansey chansey snorlax meowth kangaskhan.",
+    "Kangaskhan eevee persian fearow pidgey wigglytuff dodrio. Kangaskhan chansey doduo doduo lickitung rattata. Snorlax pidgey doduo dodrio tauros rattata porygon ditto."
+];
 
 export default function Formulario() {
     const [opcaoSelecionada, setOpcaoSelecionada] = useState("PARAGRAFO");
@@ -68,7 +82,8 @@ export default function Formulario() {
         setQuantidade(value.toString().padStart(1));
     };
 
-    const handleBotao = () => {
+    const handleBotao = (e) => {
+        e.preventDefault();
         const quantidade = document.getElementById('quantity').value;
 
         console.log("Opção selecionada:", opcaoSelecionada);
@@ -78,6 +93,7 @@ export default function Formulario() {
         setMostrarOffcanvas(true);
     };
 
+
     const toggleOffcanvas = (status) => {
         setMostrarOffcanvas(status);
     };
@@ -86,15 +102,15 @@ export default function Formulario() {
         <>
             <div>
                 <form onSubmit={(e) => {
-                    e.preventDefault();
-                    handleBotao();
+                    e.preventDefault(); // Impede o comportamento padrão do evento de formulário
+                    handleBotao(e);
                 }}>
                     <div id="radioButtons">
                         <p className="mb-2 font-bold index-100 text-sm text-cor-offwhite">CONTENT MODE:</p>
                         <RadioGroup value={opcaoSelecionada} onChange={setOpcaoSelecionada} className="flex justify-between items-center">
                             <RadioGroup.Option value="PARAGRAFO" className="cursor-pointer">
                                 {({ checked }) => (
-                                    <div className={`cursor-pointer transition-all ease-in-out hover:transition-all border border-transparent ${checked ? 'bg-cor-offwhite text-cor-marrom text-sm p-2 rounded-md text-cor-amarelho hover:shadow-2xl' : 'hover:border-cor-offwhite p-2 text-sm rounded-md'}`}>
+                                    <div className={`px-3 py-2 border-2 text-sm border-cor-offwhite border-opacity-80 text-opacity-90 font-semibold rounded-md cursor-pointer ${checked ? 'bg-cor-offwhite text-cor-marrom' : 'text-cor-offwhite'} hover:text-opacity-100 hover:border-opacity-100 transition-all ease-in-out`}>
                                         <input type="radio" className="sr-only" />
                                         <label htmlFor="paragraphs" className="cursor-pointer">Paragraphs</label>
                                     </div>
@@ -102,7 +118,7 @@ export default function Formulario() {
                             </RadioGroup.Option>
                             <RadioGroup.Option value="FRASE" className="cursor-pointer">
                                 {({ checked }) => (
-                                    <div className={`cursor-pointer transition-all ease-in-out hover:transition-all border border-transparent ${checked ? 'bg-cor-offwhite text-cor-marrom text-sm p-2 rounded-md text-cor-amarelho hover:shadow-2xl' : 'hover:border-cor-offwhite p-2 text-sm rounded-md'}`}>
+                                    <div className={`px-3 py-2 border-2 text-sm border-cor-offwhite border-opacity-80 text-opacity-90 font-semibold rounded-md cursor-pointer ${checked ? 'bg-cor-offwhite text-cor-marrom' : 'text-cor-offwhite'} hover:text-opacity-100 hover:border-opacity-100 transition-all ease-in-out`}>
                                         <input type="radio" className="sr-only" />
                                         <label htmlFor="sentences" className="cursor-pointer">Sentences</label>
                                     </div>
@@ -110,7 +126,7 @@ export default function Formulario() {
                             </RadioGroup.Option>
                             <RadioGroup.Option value="PALAVRA" className="cursor-pointer">
                                 {({ checked }) => (
-                                    <div className={`cursor-pointer transition-all ease-in-out hover:transition-all border border-transparent ${checked ? 'bg-cor-offwhite text-cor-marrom text-sm p-2 rounded-md text-cor-amarelho hover:shadow-2xl' : 'hover:border-cor-offwhite p-2 text-sm rounded-md'}`}>
+                                    <div className={`px-3 py-2 border-2 text-sm border-cor-offwhite border-opacity-80 text-opacity-90 font-semibold rounded-md cursor-pointer ${checked ? 'bg-cor-offwhite text-cor-marrom' : 'text-cor-offwhite'} hover:text-opacity-100 hover:border-opacity-100 transition-all ease-in-out`}>
                                         <input type="radio" className="sr-only" />
                                         <label htmlFor="words" className="cursor-pointer">Words</label>
                                     </div>
@@ -230,11 +246,14 @@ export default function Formulario() {
                             <button type="submit" className="w-full bg-cor-amarelo transition-all py-2 px-4 duration-150 rounded-md text-sm text-cor-marrom font-bold hover:bg-cor-amarelo hover:box-shadow-2xl hover:transition-all hover:ease-in-out hover:duration-150 hover:border-cor-amarelo hover:text-cor-laranja">
                                 GENERATE POKÉ IPSUM
                             </button>
+
+                            <Display show={mostrarOffcanvas} onHide={() => toggleOffcanvas(false)}>
+                                {retornoDadosMockup}
+                            </Display>
                         </div>
                     </div>
                 </form>
             </div >
-            <Display dados={['Resultado 1', 'Resultado 2']} mostrarOffcanvas={mostrarOffcanvas} toggleOffcanvas={toggleOffcanvas} />
         </>
     );
 }
