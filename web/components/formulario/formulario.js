@@ -110,7 +110,7 @@ export default function Formulario() {
                         <RadioGroup value={opcaoSelecionada} onChange={setOpcaoSelecionada} className="flex justify-between items-center">
                             <RadioGroup.Option value="PARAGRAFO" className="cursor-pointer">
                                 {({ checked }) => (
-                                    <div className={`px-3 py-2 border-2 text-sm border-cor-offwhite border-opacity-80 text-opacity-90 font-semibold rounded-md cursor-pointer ${checked ? 'bg-cor-offwhite text-cor-marrom' : 'text-cor-offwhite'} hover:text-opacity-100 hover:border-opacity-100 transition-all ease-in-out`}>
+                                    <div className={`px-3 py-2 border-2 text-sm border-cor-offwhite border-opacity-80 text-opacity-90 rounded-md cursor-pointer ${checked ? 'bg-cor-offwhite text-cor-marrom' : 'text-cor-offwhite'} hover:text-opacity-100 hover:border-opacity-100 transition-all ease-in-out`}>
                                         <input type="radio" className="sr-only" />
                                         <label htmlFor="paragraphs" className="cursor-pointer">Paragraphs</label>
                                     </div>
@@ -118,7 +118,7 @@ export default function Formulario() {
                             </RadioGroup.Option>
                             <RadioGroup.Option value="FRASE" className="cursor-pointer">
                                 {({ checked }) => (
-                                    <div className={`px-3 py-2 border-2 text-sm border-cor-offwhite border-opacity-80 text-opacity-90 font-semibold rounded-md cursor-pointer ${checked ? 'bg-cor-offwhite text-cor-marrom' : 'text-cor-offwhite'} hover:text-opacity-100 hover:border-opacity-100 transition-all ease-in-out`}>
+                                    <div className={`px-3 py-2 border-2 text-sm border-cor-offwhite border-opacity-80 text-opacity-90 rounded-md cursor-pointer ${checked ? 'bg-cor-offwhite text-cor-marrom' : 'text-cor-offwhite'} hover:text-opacity-100 hover:border-opacity-100 transition-all ease-in-out`}>
                                         <input type="radio" className="sr-only" />
                                         <label htmlFor="sentences" className="cursor-pointer">Sentences</label>
                                     </div>
@@ -126,7 +126,7 @@ export default function Formulario() {
                             </RadioGroup.Option>
                             <RadioGroup.Option value="PALAVRA" className="cursor-pointer">
                                 {({ checked }) => (
-                                    <div className={`px-3 py-2 border-2 text-sm border-cor-offwhite border-opacity-80 text-opacity-90 font-semibold rounded-md cursor-pointer ${checked ? 'bg-cor-offwhite text-cor-marrom' : 'text-cor-offwhite'} hover:text-opacity-100 hover:border-opacity-100 transition-all ease-in-out`}>
+                                    <div className={`px-3 py-2 border-2 text-sm border-cor-offwhite border-opacity-80 text-opacity-90 rounded-md cursor-pointer ${checked ? 'bg-cor-offwhite text-cor-marrom' : 'text-cor-offwhite'} hover:text-opacity-100 hover:border-opacity-100 transition-all ease-in-out`}>
                                         <input type="radio" className="sr-only" />
                                         <label htmlFor="words" className="cursor-pointer">Words</label>
                                     </div>
@@ -172,7 +172,7 @@ export default function Formulario() {
                                             >
                                                 {({ selected }) => (
                                                     <>
-                                                        <span className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}>
+                                                        <span className={`block truncate`}>
                                                             {tipo.name}
                                                         </span>
                                                     </>

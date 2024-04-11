@@ -15,8 +15,49 @@
     background-color: transparent;
 }
 
-/* ul + li {
-    list-stype: arabic!important;
-    background-color: transparent!important;
-    font-size: 50px
-} */
+ul {
+    list-stype: none!important;
+    padding-left: 0 !important;
+}
+
+.offcanvas-backdrop
+{
+    display: none!important;
+}
+
+.btn-close{
+    display: none!important;
+}
+
+.modal-footer {
+    justify-content: space-between !important;
+    font-size: 0.6rem !important;
+    padding: 0.75rem 1.5rem !important;
+    margin: 0 !important;
+}
+
+.modal-footer p,
+.modal-body p {
+    margin-left: 0 !important;
+}
+
+.modal-body {
+    padding: 1.5rem !important;
+}
+
+.modal-body p {
+    font-size: 0.875rem !important;
+}
+
+.modal-dialog-centered {
+    max-width: 385px !important;
+    opacity: .9 !important;
+}
+
+.botaozinho{
+    color: #32272e!important;
+    background-color: #f2d544!important;
+    border: none !important;
+    font-weight: 500!important;
+    pading: 0px !important;
+}
