@@ -38,26 +38,44 @@ ul {
 
 .modal-footer p,
 .modal-body p {
-    margin-left: 0 !important;
+    margin-left: 0px !important;
 }
 
+.modal-footer{
+    background-color: #FFFDE3 !important;
+}
 .modal-body {
     padding: 1.5rem !important;
+    background-color: #FFFDE3 !important;
+    border-radius: 1rem !important;
 }
 
+.modal-content{
+    background-color: #FFFDE3 !important;
+
+}
 .modal-body p {
-    font-size: 0.875rem !important;
+    font-size: 1rem !important;
 }
 
 .modal-dialog-centered {
-    max-width: 385px !important;
-    opacity: .9 !important;
+    max-width: 400px !important;
+    opacity: 1 !important;
 }
 
-.botaozinho{
-    color: #32272e!important;
-    background-color: #f2d544!important;
-    border: none !important;
-    font-weight: 500!important;
-    pading: 0px !important;
+.offcanvas-end {
+    margin: 0px !important;
+}
+
+.margin-reset {
+    margin-left: 0px !important;
+}
+
+.offcanvas-title {
+    font-size: 0.875rem !important;
+    font-weight: bold !important;
+}
+
+.offcanvas .offcanvas-end{
+    width: 200px;
 }

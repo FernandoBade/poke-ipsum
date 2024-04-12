@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Formulario from "../formulario/formulario";
 import Rodape from "../rodape/rodape";
-import { InformationCircleIcon } from "@heroicons/react/24/outline";
-import { Modal, Button } from 'react-bootstrap';
+import { CodeBracketSquareIcon } from "@heroicons/react/24/outline";
+import { Modal } from 'react-bootstrap';
 
 export default function Menu() {
     const [mostrarModal, setMostrarModal] = useState(false);
@@ -11,8 +11,8 @@ export default function Menu() {
     return (
         <>
             <div className="fixed top-0 left-0 h-full w-[385px] bg-cor-carvao bg-opacity-80 text-cor-offwhite z-10 flex flex-col justify-between drop-shadow-[0_25px_6px_rgba(0,0,0,0.55)]">
-                <div className="absolute top-4 right-4">
-                    <InformationCircleIcon className="h-6 w-6 text-cor-amarelo cursor-pointer hover:scale-105 transition-all ease-in-out" onClick={handleModal} />
+                <div className="absolute top-5 left-5">
+                    <CodeBracketSquareIcon className="h-6 w-6 text-cor-amarelo cursor-pointer hover:text-cor-laranja transition-all ease-in-out" onClick={handleModal} />
                 </div>
                 <div className="p-6 flex-grow">
                     <div className="logo">

@@ -110,7 +110,7 @@ export default function Formulario() {
                         <RadioGroup value={opcaoSelecionada} onChange={setOpcaoSelecionada} className="flex justify-between items-center">
                             <RadioGroup.Option value="PARAGRAFO" className="cursor-pointer">
                                 {({ checked }) => (
-                                    <div className={`px-3 py-2 border-2 text-sm border-cor-offwhite border-opacity-80 text-opacity-90 rounded-md cursor-pointer ${checked ? 'bg-cor-offwhite text-cor-marrom' : 'text-cor-offwhite'} hover:text-opacity-100 hover:border-opacity-100 transition-all ease-in-out`}>
+                                    <div className={`px-3 py-2 border-2 text-md border-cor-offwhite border-opacity-80 text-opacity-90 rounded-md cursor-pointer ${checked ? 'bg-cor-offwhite text-cor-marrom' : 'text-cor-offwhite'} hover:text-opacity-100 hover:border-opacity-100 transition-all ease-in-out`}>
                                         <input type="radio" className="sr-only" />
                                         <label htmlFor="paragraphs" className="cursor-pointer">Paragraphs</label>
                                     </div>
@@ -118,7 +118,7 @@ export default function Formulario() {
                             </RadioGroup.Option>
                             <RadioGroup.Option value="FRASE" className="cursor-pointer">
                                 {({ checked }) => (
-                                    <div className={`px-3 py-2 border-2 text-sm border-cor-offwhite border-opacity-80 text-opacity-90 rounded-md cursor-pointer ${checked ? 'bg-cor-offwhite text-cor-marrom' : 'text-cor-offwhite'} hover:text-opacity-100 hover:border-opacity-100 transition-all ease-in-out`}>
+                                    <div className={`px-3 py-2 border-2 text-md border-cor-offwhite border-opacity-80 text-opacity-90 rounded-md cursor-pointer ${checked ? 'bg-cor-offwhite text-cor-marrom' : 'text-cor-offwhite'} hover:text-opacity-100 hover:border-opacity-100 transition-all ease-in-out`}>
                                         <input type="radio" className="sr-only" />
                                         <label htmlFor="sentences" className="cursor-pointer">Sentences</label>
                                     </div>
@@ -126,7 +126,7 @@ export default function Formulario() {
                             </RadioGroup.Option>
                             <RadioGroup.Option value="PALAVRA" className="cursor-pointer">
                                 {({ checked }) => (
-                                    <div className={`px-3 py-2 border-2 text-sm border-cor-offwhite border-opacity-80 text-opacity-90 rounded-md cursor-pointer ${checked ? 'bg-cor-offwhite text-cor-marrom' : 'text-cor-offwhite'} hover:text-opacity-100 hover:border-opacity-100 transition-all ease-in-out`}>
+                                    <div className={`px-3 py-2 border-2 text-md border-cor-offwhite border-opacity-80 text-opacity-90 rounded-md cursor-pointer ${checked ? 'bg-cor-offwhite text-cor-marrom' : 'text-cor-offwhite'} hover:text-opacity-100 hover:border-opacity-100 transition-all ease-in-out`}>
                                         <input type="radio" className="sr-only" />
                                         <label htmlFor="words" className="cursor-pointer">Words</label>
                                     </div>
@@ -155,12 +155,12 @@ export default function Formulario() {
                                     </Popover>
                                 </div>
                                 <div className="relative">
-                                    <Listbox.Button className="mb-2 w-full text-left bg-cor-offwhite shadow-lg text-sm p-2 rounded-md text-cor-marrom">
+                                    <Listbox.Button className="mb-2 w-full text-left bg-cor-offwhite shadow-lg text-md p-2 rounded-md text-cor-marrom">
                                         {tiposElementosSelecionados.length > 0
                                             ? tiposElementosSelecionados.map((tipo) => tipo.name).join(', ')
                                             : "Select at least one type"}
                                     </Listbox.Button>
-                                    <Listbox.Options className="z-10 absolute w-full text-left bg-cor-offwhite text-cor-marrom shadow-lg max-h-60 rounded-md text-base overflow-auto focus:outline-none sm:text-sm">
+                                    <Listbox.Options className="z-10 absolute w-full text-left bg-cor-offwhite text-cor-marrom shadow-lg max-h-60 rounded-md text-base overflow-auto focus:outline-none">
                                         {tiposElementos.map((tipo) => (
                                             <Listbox.Option
                                                 key={tipo.id}
@@ -172,7 +172,7 @@ export default function Formulario() {
                                             >
                                                 {({ selected }) => (
                                                     <>
-                                                        <span className={`block truncate`}>
+                                                        <span className={'block truncate'}>
                                                             {tipo.name}
                                                         </span>
                                                     </>
@@ -206,12 +206,12 @@ export default function Formulario() {
 
                                 </div>
                                 <div className="relative">
-                                    <Listbox.Button className="mb-2 w-full text-left bg-cor-offwhite shadow-lg text-sm p-2 rounded-md text-cor-marrom">
+                                    <Listbox.Button className="mb-2 w-full text-left bg-cor-offwhite shadow-lg text-md p-2 rounded-md text-cor-marrom">
                                         {geracoesSelecionadas.length > 0
                                             ? geracoesSelecionadas.map((geracao) => geracao.name).join(', ')
                                             : 'Select at least one generation'}
                                     </Listbox.Button>
-                                    <Listbox.Options className="z-10 absolute w-full text-left bg-cor-offwhite text-cor-marrom shadow-lg max-h-60 rounded-md text-base overflow-auto focus:outline-none sm:text-sm">
+                                    <Listbox.Options className="z-10 absolute w-full text-left bg-cor-offwhite text-cor-marrom shadow-lg max-h-60 rounded-md overflow-auto focus:outline-none">
                                         {geracoes.map((geracao) => (
                                             <Listbox.Option
                                                 key={geracao.id}
@@ -223,7 +223,7 @@ export default function Formulario() {
                                             >
                                                 {({ selected }) => (
                                                     <>
-                                                        <span className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}>
+                                                        <span className={'block truncate'}>
                                                             {geracao.name}
                                                         </span>
                                                     </>
@@ -239,11 +239,11 @@ export default function Formulario() {
                     <div className="flex items-end mt-[1rem!important] space-x-4">
                         <div className="w-1/5">
                             <label htmlFor="quantity" className="block mb-2 font-bold text-sm text-cor-offwhite">QUANTITY:</label>
-                            <input type="text" maxLength={2} value={quantidade} onChange={handleQuantidadeChange} onBlur={validarQuantidade} id="quantity" name="quantity" className="w-full bg-cor-offwhite shadow-lg text-sm p-2 rounded-md text-cor-marrom" />
+                            <input type="text" maxLength={2} value={quantidade} onChange={handleQuantidadeChange} onBlur={validarQuantidade} id="quantity" name="quantity" className="w-full bg-cor-offwhite shadow-lg text-md p-2 rounded-md text-cor-marrom" />
                         </div>
 
                         <div className="w-4/5">
-                            <button type="submit" className="w-full bg-cor-amarelo transition-all py-2 px-4 duration-150 rounded-md text-sm text-cor-marrom font-bold hover:bg-cor-amarelo hover:box-shadow-2xl hover:transition-all hover:ease-in-out hover:duration-150 hover:border-cor-amarelo hover:text-cor-laranja">
+                            <button type="submit" className="w-full bg-cor-amarelo transition-all py-2 px-4 duration-150 rounded-md text-md text-cor-marrom font-bold hover:bg-cor-amarelo hover:box-shadow-2xl hover:transition-all hover:ease-in-out hover:duration-150 hover:border-cor-amarelo hover:text-cor-laranja">
                                 GENERATE POKÉ IPSUM
                             </button>
 
