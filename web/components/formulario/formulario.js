@@ -15,34 +15,36 @@ export default function Formulario() {
     const [mostrarOffcanvas, setMostrarOffcanvas] = useState(false);
     const [dadosRetornados, setDadosRetornados] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [quantidade, setQuantidade] = useState('');
-    
+    const [quantidade, setQuantidade] = useState('5');
+
     const inputRef = useRef(null);
 
     useEffect(() => {
-        document.getElementById('quantity').addEventListener('blur', () => {
-            if (inputRef.current) {
-                inputRef.current.focus();
+        const fetchData = async () => {
+            try {
+                setLoading(true);
+                const [tipos, geracoes] = await Promise.all([
+                    obterTiposElementos(),
+                    obterGeracoes()
+                ]);
+                setTiposElementos(tipos);
+                setGeracoes(geracoes);
+                setTiposElementoSelecionados([tipos[0]]);
+                setGeracoesSelecionadas([geracoes[1]]);
+            } catch (erro) {
+                console.error(erro);
+            } finally {
+                setLoading(false);
             }
-        });
-
-        obterTiposElementos().then(setTiposElementos).catch(console.error);
-        obterGeracoes().then(setGeracoes).catch(console.error);
+        };
+        fetchData();
     }, []);
 
-    useEffect(() => {
-        obterTiposElementos().then(dados => {
-            setTiposElementos(dados);
-            setTiposElementoSelecionados([dados[0]]);
-        }).catch(error => console.error(error));
-
-        obterGeracoes().then(dados => {
-            setGeracoes(dados);
-            setGeracoesSelecionadas([dados[1]]);
-        }).catch(error => console.error(error));
-    }, []);
-
-
+    const handleBlur = () => {
+        if (inputRef.current) {
+            inputRef.current.focus();
+        }
+    };
 
     const handleTiposElementosChange = (opcoesSelecionadas) => {
         const allTypesSelecionado = opcoesSelecionadas.some(opcao => opcao.name === 'All types') && !tiposElementosSelecionados.some(opcao => opcao.name === 'All types');
@@ -73,10 +75,8 @@ export default function Formulario() {
         }
     };
 
-
     const handleQuantidadeChange = (e) => {
         const value = e.target.value;
-        // Allow only numeric values
         if (/^\d*$/.test(value)) {
             setQuantidade(value);
         }
@@ -237,9 +237,11 @@ export default function Formulario() {
                                 type="text"
                                 id="quantity"
                                 name="quantity"
+                                maxLength='2'
                                 className="w-full bg-cor-offwhite shadow-lg text-md p-2 rounded-md text-cor-marrom"
                                 value={quantidade}
                                 onChange={handleQuantidadeChange}
+                                onBlur={handleBlur}
                             />
                         </div>
 
