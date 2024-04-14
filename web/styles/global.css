@@ -79,3 +79,16 @@ ul {
 .offcanvas .offcanvas-end{
     width: 200px;
 }
+
+.popover-arrow:after {
+    border-right-color: rgba(205, 128, 33, 0.95)!important;
+}
+
+.popover {
+    margin-left: .75rem !important;
+
+}
+
+#overlay-basic > p{
+    color: red !important;
+}

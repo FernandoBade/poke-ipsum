@@ -3,6 +3,7 @@ import Display from '../display/display';
 import obterTiposElementos, { obterGeracoes } from '/utils/pokeipsumAPI';
 import { Listbox, RadioGroup, Popover } from '@headlessui/react';
 import { ChatBubbleLeftEllipsisIcon } from '@heroicons/react/24/solid';
+import PopoverReactBootstrap from '../tooltip/tooltip';
 
 const retornoDadosMockup = [
     "Farfetchd dodrio spearow ditto pidgey dodrio pidgeotto fearow. Persian tauros chansey meowth chansey. Meowth raticate pidgey wigglytuff rattata. Pidgey snorlax tauros meowth tauros persian. Jigglypuff farfetchd meowth lickitung tauros ditto porygon doduo.",
@@ -27,7 +28,6 @@ export default function Formulario() {
     const [geracoesSelecionadas, setGeracoesSelecionadas] = useState([]);
     const [quantidade, setQuantidade] = useState('5');
     const [mostrarOffcanvas, setMostrarOffcanvas] = useState(false);
-
 
     useEffect(() => {
         obterTiposElementos().then(dados => {
@@ -140,19 +140,9 @@ export default function Formulario() {
                             <>
                                 <div className='flex mt-[1.5rem!important]'>
                                     <Listbox.Label className="mb-2 flex font-bold text-sm text-cor-offwhite">TYPE:</Listbox.Label>
-                                    <Popover className="relative ml-1">
-                                        {({ open }) => (
-                                            <>
-                                                <Popover.Button className="active:outline-nome active:border-none hover:scale-110 transition-all ease-in-out">
-                                                    <ChatBubbleLeftEllipsisIcon className="h-4 w-4 text-cor-offwhite" />
-                                                </Popover.Button>
-
-                                                <Popover.Panel className="absolute shadow-2xl z-20 font-thin left-full w-[250px] text-sm translate-y-[-60px] transition-all ease-in-out text-cor-offwhite p-4 ml-2 bg-cor-marrom rounded-md opacity-95">
-                                                    Remember that in the new generations there are classic Pokémon with different types.
-                                                </Popover.Panel>
-                                            </>
-                                        )}
-                                    </Popover>
+                                    <PopoverReactBootstrap subtitulo="In Poké Ipsum, Pokémon are listed by their original names, regardless of regional types, Gigantamax forms, or any other variations">
+                                        <ChatBubbleLeftEllipsisIcon className="ml-1 mt-[2px] h-4 w-4 text-cor-offwhite cursor-pointer hover:scale-110 hover:text-cor-laranja transition-all ease-in-out" />
+                                    </PopoverReactBootstrap>
                                 </div>
                                 <div className="relative">
                                     <Listbox.Button className="mb-2 w-full text-left bg-cor-offwhite shadow-lg text-md p-2 rounded-md text-cor-marrom">
@@ -190,19 +180,9 @@ export default function Formulario() {
                             <>
                                 <div className='flex mt-[1rem!important]'>
                                     <Listbox.Label className="mb-2 font-bold text-sm text-cor-offwhite">GENERATION:</Listbox.Label>
-                                    <Popover className="relative ml-1 focus:outline-none">
-                                        {({ open }) => (
-                                            <>
-                                                <Popover.Button className="hover:scale-110 transition-all ease-in-out">
-                                                    <ChatBubbleLeftEllipsisIcon className="h-4 w-4 text-cor-offwhite" />
-                                                </Popover.Button>
-
-                                                <Popover.Panel className="absolute shadow-2xl z-30 font-thin left-full w-[250px] text-sm translate-y-[-70px] transition-all ease-in-out text-cor-offwhite p-4 ml-2 bg-cor-marrom rounded-md opacity-95">
-                                                    For Pokémon variants such as Mega, Gigantamax, or special editions, only their original names will be displayed.
-                                                </Popover.Panel>
-                                            </>
-                                        )}
-                                    </Popover>
+                                    <PopoverReactBootstrap subtitulo="In Poké Ipsum, Pokémon are listed by their original names, regardless of regional types, Gigantamax forms, or any other variations">
+                                        <ChatBubbleLeftEllipsisIcon className="ml-1 mt-[2px] h-4 w-4 text-cor-offwhite cursor-pointer hover:scale-110 hover:text-cor-laranja transition-all ease-in-out" />
+                                    </PopoverReactBootstrap>
 
                                 </div>
                                 <div className="relative">

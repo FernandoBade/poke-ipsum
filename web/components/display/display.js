@@ -21,11 +21,11 @@ export default function Display({ show, onHide, children }) {
             className='absolute bg-cor-offwhite opacity-90 text-cor-marrom'>
             <Offcanvas.Header className='flex z-40 flex-row justify-between items-end bg-cor-offwhite shadow-md'>
                 <div id="copy" className='border-2 p-2 rounded-md border-cor-marrom cursor-pointer hover:border-cor-laranja hover:text-cor-laranja transition-all ease-in-out' onClick={handleCopia}>
-                    <Offcanvas.Title className='pr-2 flex items-center gap-2'>
+                    <Offcanvas.Title className='pr-2 flex items-center gap-1'>
                         {copiado ? (
-                            <ClipboardDocumentCheckIcon className='w-6 cursor-pointer' />
+                            <ClipboardDocumentCheckIcon className='w-5 cursor-pointer' />
                         ) : (
-                            <ClipboardDocumentIcon className='w-6 cursor-pointer' />
+                            <ClipboardDocumentIcon className='w-5 cursor-pointer' />
                         )}
                         COPY TO CLIPBOARD
                     </Offcanvas.Title>
