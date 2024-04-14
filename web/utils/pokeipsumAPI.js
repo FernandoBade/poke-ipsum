@@ -1,12 +1,16 @@
-const pokeipsumAPI_URL = "http://localhost:3001/pokeipsum/";
+const pokeIpsum_URL = "http://localhost:3001/";
 
 function formatarNomeTipoElemento(tipoElemento) {
     return tipoElemento.charAt(0).toUpperCase() + tipoElemento.slice(1)
 }
 
+function formatarNomeGeracao(geracao) {
+    return "Generation " + geracao.split('-').pop().toUpperCase();
+}
+
 export async function obterTiposElementos() {
     try {
-        const response = await fetch(pokeipsumAPI_URL + 'obterTiposElementos/');
+        const response = await fetch(`${pokeIpsum_URL}pokeipsum/obterTiposElementos/`);
 
         if (!response.ok) {
             throw new Error('Error in the request to the Poké Ipsum API: ' + response.status);
@@ -26,13 +30,10 @@ export async function obterTiposElementos() {
     }
 }
 
-function formatarNomeGeracao(geracao) {
-    return "Generation " + geracao.split('-').pop().toUpperCase();
-}
 
 export async function obterGeracoes() {
     try {
-        const response = await fetch(pokeipsumAPI_URL + 'obterGeracoes/');
+        const response = await fetch(`${pokeIpsum_URL}pokeipsum/obterGeracoes/`);
 
         if (!response.ok) {
             throw new Error('Error in the request to the Poké Ipsum API: ' + response.status);
@@ -51,5 +52,27 @@ export async function obterGeracoes() {
         throw error;
     }
 }
+
+export function criarParametrosURL(opcoesUsuario) {
+    const parametrosURL = new URLSearchParams(opcoesUsuario).toString();
+    return parametrosURL;
+}
+
+export async function realizarRequisicao(opcoesUsuario) {
+    try {
+        const response = await fetch(`${pokeIpsum_URL}gerador/pokeipsum/?${opcoesUsuario}`);
+
+        if (!response.ok) {
+            throw new Error('Error in the request to the Poké Ipsum API: ' + response.status);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (erro) {
+        console.error(erro);
+        throw erro;
+    }
+}
+
 
 export default obterTiposElementos;

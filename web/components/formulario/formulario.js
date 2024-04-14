@@ -1,24 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Display from '../display/display';
-import obterTiposElementos, { obterGeracoes } from '/utils/pokeipsumAPI';
-import { Listbox, RadioGroup, Popover } from '@headlessui/react';
-import { ChatBubbleLeftEllipsisIcon } from '@heroicons/react/24/solid';
 import PopoverReactBootstrap from '../tooltip/tooltip';
-
-const retornoDadosMockup = [
-    "Farfetchd dodrio spearow ditto pidgey dodrio pidgeotto fearow. Persian tauros chansey meowth chansey. Meowth raticate pidgey wigglytuff rattata. Pidgey snorlax tauros meowth tauros persian. Jigglypuff farfetchd meowth lickitung tauros ditto porygon doduo.",
-    "Rattata jigglypuff wigglytuff spearow chansey doduo. Chansey kangaskhan lickitung persian spearow tauros meowth pidgeotto. Jigglypuff dodrio dodrio doduo wigglytuff ditto. Lickitung snorlax wigglytuff spearow eevee chansey.",
-    "Fearow snorlax meowth wigglytuff meowth porygon ditto persian. Kangaskhan pidgeot meowth meowth pidgeot. Raticate jigglypuff persian snorlax ditto farfetchd chansey. Wigglytuff farfetchd snorlax persian raticate pidgey.",
-    "Farfetchd dodrio spearow ditto pidgey dodrio pidgeotto fearow. Persian tauros chansey meowth chansey. Meowth raticate pidgey wigglytuff rattata. Pidgey snorlax tauros meowth tauros persian. Jigglypuff farfetchd meowth lickitung tauros ditto porygon doduo.",
-    "Rattata jigglypuff wigglytuff spearow chansey doduo. Chansey kangaskhan lickitung persian spearow tauros meowth pidgeotto. Jigglypuff dodrio dodrio doduo wigglytuff ditto. Lickitung snorlax wigglytuff spearow eevee chansey.",
-    "Fearow snorlax meowth wigglytuff meowth porygon ditto persian. Kangaskhan pidgeot meowth meowth pidgeot. Raticate jigglypuff persian snorlax ditto farfetchd chansey. Wigglytuff farfetchd snorlax persian raticate pidgey.",
-    "Dodrio raticate rattata ditto snorlax tauros rattata ditto. Snorlax kangaskhan wigglytuff kangaskhan ditto pidgeotto. Eevee pidgey raticate ditto pidgey raticate farfetchd. Fearow eevee chansey chansey snorlax meowth kangaskhan.",
-    "Farfetchd dodrio spearow ditto pidgey dodrio pidgeotto fearow. Persian tauros chansey meowth chansey. Meowth raticate pidgey wigglytuff rattata. Pidgey snorlax tauros meowth tauros persian. Jigglypuff farfetchd meowth lickitung tauros ditto porygon doduo.",
-    "Rattata jigglypuff wigglytuff spearow chansey doduo. Chansey kangaskhan lickitung persian spearow tauros meowth pidgeotto. Jigglypuff dodrio dodrio doduo wigglytuff ditto. Lickitung snorlax wigglytuff spearow eevee chansey.",
-    "Fearow snorlax meowth wigglytuff meowth porygon ditto persian. Kangaskhan pidgeot meowth meowth pidgeot. Raticate jigglypuff persian snorlax ditto farfetchd chansey. Wigglytuff farfetchd snorlax persian raticate pidgey.",
-    "Dodrio raticate rattata ditto snorlax tauros rattata ditto. Snorlax kangaskhan wigglytuff kangaskhan ditto pidgeotto. Eevee pidgey raticate ditto pidgey raticate farfetchd. Fearow eevee chansey chansey snorlax meowth kangaskhan.",
-    "Kangaskhan eevee persian fearow pidgey wigglytuff dodrio. Kangaskhan chansey doduo doduo lickitung rattata. Snorlax pidgey doduo dodrio tauros rattata porygon ditto."
-];
+import obterTiposElementos, { obterGeracoes, realizarRequisicao, criarParametrosURL } from '/utils/pokeipsumAPI';
+import { Listbox, RadioGroup } from '@headlessui/react';
+import { ChatBubbleLeftEllipsisIcon } from '@heroicons/react/24/solid';
+import { Spinner } from 'react-bootstrap';
 
 export default function Formulario() {
     const [opcaoSelecionada, setOpcaoSelecionada] = useState("PARAGRAFO");
@@ -26,8 +12,23 @@ export default function Formulario() {
     const [tiposElementosSelecionados, setTiposElementoSelecionados] = useState([]);
     const [geracoes, setGeracoes] = useState([]);
     const [geracoesSelecionadas, setGeracoesSelecionadas] = useState([]);
-    const [quantidade, setQuantidade] = useState('5');
     const [mostrarOffcanvas, setMostrarOffcanvas] = useState(false);
+    const [dadosRetornados, setDadosRetornados] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [quantidade, setQuantidade] = useState('');
+    
+    const inputRef = useRef(null);
+
+    useEffect(() => {
+        document.getElementById('quantity').addEventListener('blur', () => {
+            if (inputRef.current) {
+                inputRef.current.focus();
+            }
+        });
+
+        obterTiposElementos().then(setTiposElementos).catch(console.error);
+        obterGeracoes().then(setGeracoes).catch(console.error);
+    }, []);
 
     useEffect(() => {
         obterTiposElementos().then(dados => {
@@ -40,6 +41,8 @@ export default function Formulario() {
             setGeracoesSelecionadas([dados[1]]);
         }).catch(error => console.error(error));
     }, []);
+
+
 
     const handleTiposElementosChange = (opcoesSelecionadas) => {
         const allTypesSelecionado = opcoesSelecionadas.some(opcao => opcao.name === 'All types') && !tiposElementosSelecionados.some(opcao => opcao.name === 'All types');
@@ -70,29 +73,41 @@ export default function Formulario() {
         }
     };
 
+
     const handleQuantidadeChange = (e) => {
-        setQuantidade(e.target.value);
-    };
-
-    const validarQuantidade = () => {
-        let value = parseInt(quantidade, 10);
-        if (isNaN(value) || value < 1) {
-            value = 1;
+        const value = e.target.value;
+        // Allow only numeric values
+        if (/^\d*$/.test(value)) {
+            setQuantidade(value);
         }
-        setQuantidade(value.toString().padStart(1));
     };
 
-    const handleBotao = (e) => {
+    const handleBotao = async (e) => {
         e.preventDefault();
-        const quantidade = document.getElementById('quantity').value;
-
-        console.log("Opção selecionada:", opcaoSelecionada);
-        console.log("Tipos de elementos selecionados:", tiposElementosSelecionados);
-        console.log("Gerações selecionadas:", geracoesSelecionadas);
-        console.log("Quantidade:", quantidade);
         setMostrarOffcanvas(true);
-    };
+        setLoading(true);
 
+        const opcoesUsuario = {
+            modo: opcaoSelecionada,
+            tiposelementos: tiposElementosSelecionados.length > 0 ? tiposElementosSelecionados.map(tipoElemento => tipoElemento.id).join(',') : "",
+            geracoes: geracoesSelecionadas.length > 0 ? geracoesSelecionadas.map(geracao => geracao.id).join(',') : "",
+            quantidade: quantidade || '0'
+
+        };
+
+        try {
+            const data = await realizarRequisicao(criarParametrosURL(opcoesUsuario));
+
+            setDadosRetornados(data);
+            setMostrarOffcanvas(true);
+        } catch (erro) {
+            console.log(erro);
+        } finally {
+            setTimeout(() => {
+                setLoading(false);
+            }, 300);
+        }
+    };
 
     const toggleOffcanvas = (status) => {
         setMostrarOffcanvas(status);
@@ -101,10 +116,8 @@ export default function Formulario() {
     return (
         <>
             <div>
-                <form onSubmit={(e) => {
-                    e.preventDefault(); // Impede o comportamento padrão do evento de formulário
-                    handleBotao(e);
-                }}>
+                <form onSubmit={handleBotao}>
+
                     <div id="radioButtons">
                         <p className="mb-2 font-bold index-100 text-sm text-cor-offwhite">CONTENT MODE:</p>
                         <RadioGroup value={opcaoSelecionada} onChange={setOpcaoSelecionada} className="flex justify-between items-center">
@@ -219,17 +232,36 @@ export default function Formulario() {
                     <div className="flex items-end mt-[1rem!important] space-x-4">
                         <div className="w-1/5">
                             <label htmlFor="quantity" className="block mb-2 font-bold text-sm text-cor-offwhite">QUANTITY:</label>
-                            <input type="text" maxLength={2} value={quantidade} onChange={handleQuantidadeChange} onBlur={validarQuantidade} id="quantity" name="quantity" className="w-full bg-cor-offwhite shadow-lg text-md p-2 rounded-md text-cor-marrom" />
+                            <input
+                                ref={inputRef}
+                                type="text"
+                                id="quantity"
+                                name="quantity"
+                                className="w-full bg-cor-offwhite shadow-lg text-md p-2 rounded-md text-cor-marrom"
+                                value={quantidade}
+                                onChange={handleQuantidadeChange}
+                            />
                         </div>
 
                         <div className="w-4/5">
-                            <button type="submit" className="w-full bg-cor-amarelo transition-all py-2 px-4 duration-150 rounded-md text-md text-cor-marrom font-bold hover:bg-cor-amarelo hover:box-shadow-2xl hover:transition-all hover:ease-in-out hover:duration-150 hover:border-cor-amarelo hover:text-cor-laranja">
-                                GENERATE POKÉ IPSUM
+                            <button type="submit" className="w-full bg-cor-amarelo transition-all py-2 px-4 duration-150 rounded-md text-md text-cor-marrom font-bold hover:bg-cor-amarelo hover:box-shadow-2xl hover:transition-all hover:ease-in-out hover:duration-150 hover:border-cor-amarelo hover:text-cor-laranja" disabled={loading}>
+                                {loading ? (
+                                    <>
+                                        <Spinner
+                                            as="span"
+                                            animation="grow"
+                                            size="sm"
+                                            role="status"
+                                            aria-hidden="true"
+                                        />
+                                        <span className="visually-hidden">Loading...</span>
+                                    </>
+                                ) : (
+                                    'GENERATE POKÉ IPSUM'
+                                )}
                             </button>
 
-                            <Display show={mostrarOffcanvas} onHide={() => toggleOffcanvas(false)}>
-                                {retornoDadosMockup}
-                            </Display>
+                            <Display show={mostrarOffcanvas} onHide={() => toggleOffcanvas(false)} data={dadosRetornados}></Display>
                         </div>
                     </div>
                 </form>

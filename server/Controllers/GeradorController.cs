@@ -36,6 +36,12 @@ namespace PokeIpsum.Server.Controllers
                 var tiposElementoList = tiposElementos.Split(',', StringSplitOptions.RemoveEmptyEntries);
                 foreach (var tipoElemento in tiposElementoList)
                 {
+
+                    if (int.TryParse(tipoElemento, out int tipoId) && tipoId == 0)
+                    {
+                        continue;
+                    }
+
                     var pokemonsPorTipoElemento = await _tipoElementoService!.ObterListaPokemonsPorNomeDoTipoElemento(tipoElemento);
                     foreach (var te in pokemonsPorTipoElemento.PokemonsPorTipoElemento)
                     {
@@ -54,6 +60,12 @@ namespace PokeIpsum.Server.Controllers
                 var geracoesList = geracoes.Split(',', StringSplitOptions.RemoveEmptyEntries);
                 foreach (var geracao in geracoesList)
                 {
+
+                    if (int.TryParse(geracao, out int geracaoId) && geracaoId == 0)
+                    {
+                        continue;
+                    }
+
                     var pokemonsPorGeracao = await _geracaoService!.ObterPokemonsPorNomeDaGeracao(geracao);
                     foreach (var g in pokemonsPorGeracao.PokemonsPorGeracao)
                     {

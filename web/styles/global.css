@@ -96,3 +96,8 @@ ul {
 .spinner-cor {
     color: #CD8021!important;
 }
+
+::selection {
+    background-color: #CD8021!important;
+    color: #FFFDE3!important;
+}
