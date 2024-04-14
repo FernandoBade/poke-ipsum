@@ -92,3 +92,7 @@ ul {
 #overlay-basic > p{
     color: red !important;
 }
+
+.spinner-cor {
+    color: #CD8021!important;
+}

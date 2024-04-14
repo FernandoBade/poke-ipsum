@@ -6,7 +6,8 @@ function PopoverReactBootstrap({ titulo, subtitulo, children }) {
         backgroundColor: 'rgba(205, 128, 33, 0.95)',
         marginLeft: '4px',
         boxShadow: '#2b36407a 2px 2px 8px 1px',
-        border: 'none'
+        border: 'none',
+        zIndex: 100
     };
 
     const popover = (

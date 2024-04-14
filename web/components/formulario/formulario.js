@@ -140,7 +140,7 @@ export default function Formulario() {
                             <>
                                 <div className='flex mt-[1.5rem!important]'>
                                     <Listbox.Label className="mb-2 flex font-bold text-sm text-cor-offwhite">TYPE:</Listbox.Label>
-                                    <PopoverReactBootstrap subtitulo="In Poké Ipsum, Pokémon are listed by their original names, regardless of regional types, Gigantamax forms, or any other variations">
+                                    <PopoverReactBootstrap subtitulo="In Poké Ipsum, Pokémon are listed by their original names, regardless of regional types, mega forms, or any other variations">
                                         <ChatBubbleLeftEllipsisIcon className="ml-1 mt-[2px] h-4 w-4 text-cor-offwhite cursor-pointer hover:scale-110 hover:text-cor-laranja transition-all ease-in-out" />
                                     </PopoverReactBootstrap>
                                 </div>
@@ -180,7 +180,7 @@ export default function Formulario() {
                             <>
                                 <div className='flex mt-[1rem!important]'>
                                     <Listbox.Label className="mb-2 font-bold text-sm text-cor-offwhite">GENERATION:</Listbox.Label>
-                                    <PopoverReactBootstrap subtitulo="In Poké Ipsum, Pokémon are listed by their original names, regardless of regional types, Gigantamax forms, or any other variations">
+                                    <PopoverReactBootstrap subtitulo="In Poké Ipsum, Pokémon are listed by their original names, regardless of regional types, mega forms, or any other variations">
                                         <ChatBubbleLeftEllipsisIcon className="ml-1 mt-[2px] h-4 w-4 text-cor-offwhite cursor-pointer hover:scale-110 hover:text-cor-laranja transition-all ease-in-out" />
                                     </PopoverReactBootstrap>
 
