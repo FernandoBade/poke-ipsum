@@ -18,6 +18,9 @@ module.exports = {
             fontFamily: {
                 sans: ['Montserrat', 'sans-serif'],
             },
+            dropShadow: {
+                '3xl': '0 0 4px rgba(0, 0, 0, 0.20)'
+              }
         },
     },
     plugins: [],

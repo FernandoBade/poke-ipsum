@@ -141,7 +141,7 @@ namespace PokeIpsum.Server.Controllers
                 case Modo.FRASE:
                     foreach (var _ in Enumerable.Range(0, opcoes.Quantidade))
                     {
-                        int palavrasPorFrase = random.Next(5, 9);
+                        int palavrasPorFrase = random.Next(10, 15);
                         var palavrasFrase = Enumerable.Range(0, palavrasPorFrase)
                             .Select(o => opcoes.NomesPokemons[random.Next(opcoes.NomesPokemons.Count)])
                             .ToList();
@@ -155,12 +155,12 @@ namespace PokeIpsum.Server.Controllers
                 case Modo.PARAGRAFO:
                     foreach (var _ in Enumerable.Range(0, opcoes.Quantidade))
                     {
-                        int frasesPorParagrafo = random.Next(3, 6);
+                        int frasesPorParagrafo = random.Next(7, 9);
                         var frasesParagrafo = new List<string>();
 
                         foreach (var __ in Enumerable.Range(0, frasesPorParagrafo))
                         {
-                            int palavrasPorFrase = random.Next(5, 9);
+                            int palavrasPorFrase = random.Next(10, 15);
                             var palavrasFrase = Enumerable.Range(0, palavrasPorFrase)
                                 .Select(o => opcoes.NomesPokemons[random.Next(opcoes.NomesPokemons.Count)])
                                 .ToList();

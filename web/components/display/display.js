@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Offcanvas, Spinner } from 'react-bootstrap';
 import { ArrowRightEndOnRectangleIcon, ClipboardDocumentIcon, ClipboardDocumentCheckIcon } from '@heroicons/react/24/outline';
+import { Share } from '../share/share';
 
 export default function Display({ show, onHide, data }) {
     const [copiado, setCopiado] = useState(false);
@@ -32,6 +33,7 @@ export default function Display({ show, onHide, data }) {
             onHide={onHide}
             placement='end'
             backdrop='static'
+            closeLabel='Close panel'
             style={{ width: 'calc(100% - 385px)' }}
             className='absolute bg-cor-offwhite opacity-90 text-cor-marrom'>
             <Offcanvas.Header className='flex z-40 flex-row justify-between items-end bg-cor-offwhite shadow-md'>
@@ -57,7 +59,7 @@ export default function Display({ show, onHide, data }) {
                 </div>
                 <ArrowRightEndOnRectangleIcon className='w-8 cursor-pointer hover:text-cor-laranja transition-all ease-in-out' onClick={onHide} />
             </Offcanvas.Header>
-            <Offcanvas.Body className='bg-cor-offwhite text-cor-marrom p-3 text-md'>
+            <Offcanvas.Body className='bg-cor-offwhite text-cor-marrom p-3 text-md mb-12'>
                 {data && (
                     <div>
                         {data.map((paragraph, index) => (
@@ -65,6 +67,9 @@ export default function Display({ show, onHide, data }) {
                         ))}
                     </div>
                 )}
+                <div className='absolute w-full right-0 bottom-0 p-3 bg-cor-offwhite z-50 drop-shadow-3xl'>
+                    <Share className=""/>
+                </div>
             </Offcanvas.Body>
         </Offcanvas>
     );
