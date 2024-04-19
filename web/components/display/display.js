@@ -33,7 +33,6 @@ export default function Display({ show, onHide, data }) {
             onHide={onHide}
             placement='end'
             backdrop='static'
-            closeLabel='Close panel'
             style={{ width: 'calc(100% - 385px)' }}
             className='absolute bg-cor-offwhite opacity-90 text-cor-marrom'>
             <Offcanvas.Header className='flex z-40 flex-row justify-between items-end bg-cor-offwhite shadow-md'>
@@ -54,7 +53,7 @@ export default function Display({ show, onHide, data }) {
                                 <ClipboardDocumentIcon className='w-5 cursor-pointer' />
                             )}
                         </div>
-                        COPY TO CLIPBOARD
+                        GENERATE POKÉ IPSUM
                     </Offcanvas.Title>
                 </div>
                 <ArrowRightEndOnRectangleIcon className='w-8 cursor-pointer hover:text-cor-laranja transition-all ease-in-out' onClick={onHide} />

@@ -72,8 +72,8 @@ ul {
 }
 
 .offcanvas-title {
-    font-size: 0.875rem !important;
-    font-weight: bold !important;
+    font-weight: 500 !important;
+    font-size: 1rem !important;
 }
 
 .offcanvas .offcanvas-end{
