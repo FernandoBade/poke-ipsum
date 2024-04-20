@@ -53,7 +53,7 @@ export default function Display({ show, onHide, data }) {
                                 <ClipboardDocumentIcon className='w-5 cursor-pointer' />
                             )}
                         </div>
-                        GENERATE POKÉ IPSUM
+                        COPY TO CLIPBOARD
                     </Offcanvas.Title>
                 </div>
                 <ArrowRightEndOnRectangleIcon className='w-8 cursor-pointer hover:text-cor-laranja transition-all ease-in-out' onClick={onHide} />

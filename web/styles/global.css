@@ -101,3 +101,19 @@ ul {
     background-color: #CD8021!important;
     color: #FFFDE3!important;
 }
+
+/* Adicione isso ao seu arquivo CSS principal */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
