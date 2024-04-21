@@ -1,0 +1,6 @@
+@server_HostAddress = 'localhost:3001/'
+
+GET {{server_HostAddress}}
+Accept: application/json
+
+###

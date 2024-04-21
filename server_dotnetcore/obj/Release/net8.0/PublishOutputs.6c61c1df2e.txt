@@ -1,0 +1,14 @@
+C:\GitHub\poke-ipsum\out\server.exe
+C:\GitHub\poke-ipsum\out\appsettings.Development.json
+C:\GitHub\poke-ipsum\out\appsettings.json
+C:\GitHub\poke-ipsum\out\package.json
+C:\GitHub\poke-ipsum\out\server.dll
+C:\GitHub\poke-ipsum\out\server.deps.json
+C:\GitHub\poke-ipsum\out\server.runtimeconfig.json
+C:\GitHub\poke-ipsum\out\server.pdb
+C:\GitHub\poke-ipsum\out\Microsoft.AspNetCore.OpenApi.dll
+C:\GitHub\poke-ipsum\out\Microsoft.OpenApi.dll
+C:\GitHub\poke-ipsum\out\Newtonsoft.Json.dll
+C:\GitHub\poke-ipsum\out\Swashbuckle.AspNetCore.Swagger.dll
+C:\GitHub\poke-ipsum\out\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\GitHub\poke-ipsum\out\Swashbuckle.AspNetCore.SwaggerUI.dll

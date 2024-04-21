@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev-backend": "cd ../server && npm start",
+        "dev-backend": "cd ../server_dotnetcore && npm start",
         "dev-frontend": "next dev",
         "build": "next build",
         "start": "next start",
