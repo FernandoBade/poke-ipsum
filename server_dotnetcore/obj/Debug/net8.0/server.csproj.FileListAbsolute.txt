@@ -34,3 +34,9 @@ C:\GitHub\poke-ipsum\server_dotnetcore\obj\Debug\net8.0\refint\server.dll
 C:\GitHub\poke-ipsum\server_dotnetcore\obj\Debug\net8.0\server.pdb
 C:\GitHub\poke-ipsum\server_dotnetcore\obj\Debug\net8.0\server.genruntimeconfig.cache
 C:\GitHub\poke-ipsum\server_dotnetcore\obj\Debug\net8.0\ref\server.dll
+C:\GitHub\poke-ipsum\server_dotnetcore\bin\Debug\net8.0\out\web.config
+C:\GitHub\poke-ipsum\server_dotnetcore\bin\Debug\net8.0\out\appsettings.Development.json
+C:\GitHub\poke-ipsum\server_dotnetcore\bin\Debug\net8.0\out\appsettings.json
+C:\GitHub\poke-ipsum\server_dotnetcore\bin\Debug\net8.0\out\package.json
+C:\GitHub\poke-ipsum\server_dotnetcore\bin\Debug\net8.0\out\server.deps.json
+C:\GitHub\poke-ipsum\server_dotnetcore\bin\Debug\net8.0\out\server.runtimeconfig.json
