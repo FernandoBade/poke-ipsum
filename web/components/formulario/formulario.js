@@ -88,10 +88,10 @@ export default function Formulario() {
         setLoading(true);
 
         const opcoesUsuario = {
+            tiposElementos: tiposElementosSelecionados.length > 0 ? tiposElementosSelecionados.map(tipoElemento => tipoElemento.id).join(',') : "",
+            geracoes: geracoesSelecionadas.length > 0 && geracoesSelecionadas != 0 ? geracoesSelecionadas.map(geracao => geracao.id).join(',') : "",
+            quantidade: quantidade || '0',
             modo: opcaoSelecionada,
-            tiposelementos: tiposElementosSelecionados.length > 0 ? tiposElementosSelecionados.map(tipoElemento => tipoElemento.id).join(',') : "",
-            geracoes: geracoesSelecionadas.length > 0 ? geracoesSelecionadas.map(geracao => geracao.id).join(',') : "",
-            quantidade: quantidade || '0'
 
         };
 

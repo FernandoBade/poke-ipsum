@@ -2,6 +2,7 @@ import express from 'express';
 import { obterPokemonPorId, obterPokemonPorNome, obterTodosOsPokemons } from '../services/pokemonService.js';
 import { obterListaGeracoes, obterTodosPokemonsAgrupadosPorGeracoes, obterPokemonsPorNomeDaGeracao, obterPokemonsPorIdDaGeracao } from '../services/geracaoService.js';
 import {
+    obterListaTiposElementos,
     obterTodosPokemonsAgrupadosPorTipoElemento,
     obterTipoElementoPorNome,
     obterTipoElementoPorId,
@@ -29,12 +30,13 @@ router.get('/pokemon/:idOuNome?', async (req, res) => {
 
 router.get('/geracao', async (req, res) => {
     try {
-        const geracoes = await obterListaGeracoes();
-        res.json(geracoes);
+        const geracao = await obterListaGeracoes();
+        res.json(geracao);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
+
 
 router.get('/geracao/:idOuNome', async (req, res) => {
     const { idOuNome } = req.params;
@@ -57,13 +59,11 @@ router.get('/agruparPokemonsPorGeracao', async (req, res) => {
     }
 });
 
-router.get('/geracao/:idOuNome', async (req, res) => {
-    const { idOuNome } = req.params;
+
+router.get('/tipoelemento', async (req, res) => {
     try {
-        const geracaoData = isNaN(parseInt(idOuNome))
-            ? await obterPokemonsPorNomeDaGeracao(idOuNome)
-            : await obterPokemonsPorIdDaGeracao(parseInt(idOuNome));
-        res.json(geracaoData);
+        const tipoelemento = await obterListaTiposElementos();
+        res.json(tipoelemento);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

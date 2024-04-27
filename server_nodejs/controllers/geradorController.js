@@ -22,7 +22,7 @@ async function buscarPokemonsPorFiltroDoUsuario(tiposElementos, geracoes, quanti
     const filtradosPorTipo = new Set();
     const filtradosPorGeracao = new Set();
 
-    if (!tiposElementos) {
+    if (!tiposElementos || tiposElementos == '0') {
         const todosTipos = await obterTodosPokemonsAgrupadosPorTipoElemento();
         Object.keys(todosTipos).forEach(tipo => {
             todosTipos[tipo].forEach(pokemon => {
@@ -36,18 +36,18 @@ async function buscarPokemonsPorFiltroDoUsuario(tiposElementos, geracoes, quanti
             if (pokemonsPorTipoElemento && pokemonsPorTipoElemento.pokemonsPorTipoElemento) {
                 pokemonsPorTipoElemento.pokemonsPorTipoElemento.forEach(te => {
                     if (!excecoes.has(te.nome.toLowerCase())) {
-                        filtradosPorTipo.add(te.nome.split('-')[0]);
+                        filtradosPorTipo.add(te.nome);
                     }
                 });
             }
         }
     }
 
-    if (!geracoes) {
+    if (!geracoes || geracoes == '0') {
         const geracoes = await obterTodosPokemonsAgrupadosPorGeracoes();
         Object.keys(geracoes).forEach(tipo => {
             geracoes[tipo].forEach(pokemon => {
-                filtradosPorGeracao.add(pokemon.nome.split('-')[0]);
+                filtradosPorGeracao.add(pokemon.nome);
             });
         });
     } else {
@@ -58,12 +58,13 @@ async function buscarPokemonsPorFiltroDoUsuario(tiposElementos, geracoes, quanti
             if (pokemonsPorGeracao && Array.isArray(pokemonsPorGeracao)) {
                 pokemonsPorGeracao.forEach(g => {
                     if (g && g.nome && !excecoes.has(g.nome.toLowerCase())) {
-                        filtradosPorGeracao.add(g.nome.split('-')[0]);
+                        filtradosPorGeracao.add(g.nome);
                     }
                 });
             }
         }
     }
+
 
     let nomesPokemonsFiltrados = new Set();
 
@@ -89,7 +90,6 @@ async function buscarPokemonsPorFiltroDoUsuario(tiposElementos, geracoes, quanti
 
 
 function gerarPokeIpsum(nomesPokemons, quantidade, modo) {
-
     const resultados = [];
     const random = Math.random;
     const titleCase = str => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
@@ -103,19 +103,22 @@ function gerarPokeIpsum(nomesPokemons, quantidade, modo) {
 
         case "FRASE":
             for (let i = 0; i < quantidade; i++) {
-                let frase = Array.from({ length: Math.floor(random() * 6 + 5) }, () =>
-                    titleCase(nomesPokemons[Math.floor(random() * nomesPokemons.length)])
-                ).join(' ') + '.';
-                resultados.push(frase);
+                let frase = Array.from({ length: Math.floor(random() * 10 + 15) }, () =>
+                    nomesPokemons[Math.floor(random() * nomesPokemons.length)].toLowerCase()
+                );
+                frase[0] = titleCase(frase[0]);
+                resultados.push(frase.join(' ') + '.');
             }
             break;
 
         case "PARAGRAFO":
             for (let i = 0; i < quantidade; i++) {
-                let paragrafo = Array.from({ length: Math.floor(random() * 3 + 2) }, () => {
-                    return Array.from({ length: Math.floor(random() * 6 + 5) }, () =>
-                        titleCase(nomesPokemons[Math.floor(random() * nomesPokemons.length)])
-                    ).join(' ') + '.';
+                let paragrafo = Array.from({ length: Math.floor(random() * 8 + 9) }, () => {
+                    let frase = Array.from({ length: Math.floor(random() * 5 + 4) }, () =>
+                        nomesPokemons[Math.floor(random() * nomesPokemons.length)].toLowerCase()
+                    );
+                    frase[0] = titleCase(frase[0]);
+                    return frase.join(' ') + '.';
                 }).join(' ');
                 resultados.push(paragrafo);
             }
