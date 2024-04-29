@@ -1,13 +1,7 @@
 import express from 'express';
 import { obterPokemonPorId, obterPokemonPorNome, obterTodosOsPokemons } from '../services/pokemonService.js';
 import { obterListaGeracoes, obterTodosPokemonsAgrupadosPorGeracoes, obterPokemonsPorNomeDaGeracao, obterPokemonsPorIdDaGeracao } from '../services/geracaoService.js';
-import {
-    obterListaTiposElementos,
-    obterTodosPokemonsAgrupadosPorTipoElemento,
-    obterTipoElementoPorNome,
-    obterTipoElementoPorId,
-    obterListaPokemonsPorNomeDoTipoElemento
-} from '../services/tipoElementoService.js';
+import { obterListaTiposElementos, obterTodosPokemonsAgrupadosPorTipoElemento, obterTipoElementoPorNome, obterTipoElementoPorId, obterListaPokemonsPorNomeDoTipoElemento } from '../services/tipoElementoService.js';
 
 const router = express.Router();
 
