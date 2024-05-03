@@ -10,7 +10,7 @@ function formatarNomeGeracao(geracao) {
 
 export async function obterTiposElementos() {
     try {
-        const response = await fetch(`${baseURL}tipoElemento/`);
+        const response = await fetch(`${baseURL}tipoelemento/`);
         if (!response.ok) {
             throw new Error('Error in the request to the Poké Ipsum API: ' + response.status);
         }
@@ -24,7 +24,6 @@ export async function obterTiposElementos() {
 
         const [allTypes, ...rest] = tiposElementos;
         const sortedElementos = [allTypes, ...rest.sort((a, b) => a.name.localeCompare(b.name))];
-        console.log(sortedElementos);
 
         return sortedElementos;
     } catch (error) {
