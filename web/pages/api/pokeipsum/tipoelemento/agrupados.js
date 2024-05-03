@@ -1,10 +1,10 @@
-import { obterListaTiposElementos } from '../../../../services/tipoElementoService';
+import { obterTodosPokemonsAgrupadosPorTipoElemento } from '../../../../services/tipoElementoService';
 
 export default async function handler(req, res) {
     if (req.method === 'GET') {
         try {
-            const listaTipos = await obterListaTiposElementos();
-            res.status(200).json(listaTipos);
+            const pokemonsAgrupados = await obterTodosPokemonsAgrupadosPorTipoElemento();
+            res.status(200).json(pokemonsAgrupados);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
