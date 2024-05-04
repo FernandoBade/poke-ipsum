@@ -89,6 +89,10 @@ ul {
 
 }
 
+.popover-basic {
+    z-index:1000
+}
+
 #overlay-basic > p{
     color: red !important;
 }

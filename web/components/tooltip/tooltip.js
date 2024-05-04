@@ -7,7 +7,7 @@ function PopoverReactBootstrap({ titulo, subtitulo, children }) {
         marginLeft: '4px',
         boxShadow: '#2b36407a 2px 2px 8px 1px',
         border: 'none',
-        zIndex: 100
+        zIndex: 10000
     };
 
     const popover = (
