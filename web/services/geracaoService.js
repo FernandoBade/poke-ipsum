@@ -3,58 +3,92 @@ import NodeCache from 'node-cache';
 import dotenv from 'dotenv';
 
 dotenv.config();
-const cache = new NodeCache();
+const cache = new NodeCache({ stdTTL: 180 * 24 * 60 * 60 }); // 1 ano
 const pokeapiURL = `${process.env.POKEAPI_URL}generation/`;
 
 async function obterListaGeracoes() {
-    const url = pokeapiURL;
-    const response = await axios.get(url);
-    return response.data.results.map(ger => ({ nome: ger.name }));
+    const chaveCache = 'listaGeracoes';
+    let listaGeracoes = cache.get(chaveCache);
+
+    if (!listaGeracoes) {
+        const url = pokeapiURL;
+        const response = await axios.get(url);
+        listaGeracoes = response.data.results.map(ger => ({ nome: ger.name }));
+        cache.set(chaveCache, listaGeracoes);
+    }
+
+    return listaGeracoes;
 }
 
 async function obterPokemonsPorIdDaGeracao(id) {
-    const url = `${pokeapiURL}${id}`;
-    const response = await axios.get(url);
-    return {
-        pokemonsPorGeracao: response.data.pokemon_species.map(ps => ({ nome: ps.name }))
-    };
+    const chaveCache = `pokemonsPorIdDaGeracao-${id}`;
+    let pokemonsPorGeracao = cache.get(chaveCache);
+
+    if (!pokemonsPorGeracao) {
+        const url = `${pokeapiURL}${id}`;
+        const response = await axios.get(url);
+        pokemonsPorGeracao = {
+            pokemonsPorGeracao: response.data.pokemon_species.map(ps => ({ nome: ps.name }))
+        };
+        cache.set(chaveCache, pokemonsPorGeracao);
+    }
+
+    return pokemonsPorGeracao;
 }
 
 async function obterPokemonsPorNomeDaGeracao(nome) {
-    const url = `${pokeapiURL}${nome}`;
-    const response = await axios.get(url);
-    if (response.status !== 200) {
-        console.error(`Failed to fetch pokemons for generation ${nome}, status code: ${response.status}`);
-        return null;
+    const chaveCache = `pokemonsPorNomeDaGeracao-${nome}`;
+    let pokemonsPorGeracao = cache.get(chaveCache);
+
+    if (!pokemonsPorGeracao) {
+        const url = `${pokeapiURL}${nome}`;
+        const response = await axios.get(url);
+        if (response.status !== 200) {
+            console.error(`Erro ao buscar pokemons para a geração ${nome}, código de status: ${response.status}`);
+            return null;
+        }
+        pokemonsPorGeracao = {
+            pokemonsPorGeracao: response.data.pokemon_species.map(ps => ({ nome: ps.name }))
+        };
+        cache.set(chaveCache, pokemonsPorGeracao);
     }
-    return {
-        pokemonsPorGeracao: response.data.pokemon_species.map(ps => ({ nome: ps.name }))
-    };
+
+    return pokemonsPorGeracao;
 }
 
 async function obterTodosPokemonsAgrupadosPorGeracoes() {
-    const listaGeracoes = await obterListaGeracoes();
-    const pokemonsAgrupadosPorGeracao = {};
-    const ano = new Date().getFullYear();
-    const umAnoEmSegundos = 365 * 24 * 60 * 60;
+    const chaveCache = 'todosPokemonsAgrupadosPorGeracoes';
+    let pokemonsAgrupados = cache.get(chaveCache);
 
-    for (const geracao of listaGeracoes) {
-        const chaveCache = `all-pokemons-by-${geracao.nome}-${ano}`;
-        let pokemonsPorGeracao = cache.get(chaveCache);
+    if (!pokemonsAgrupados) {
+        const listaGeracoes = await obterListaGeracoes();
+        pokemonsAgrupados = {};
+        const umAnoEmSegundos = 365 * 24 * 60 * 60;
 
-        if (!pokemonsPorGeracao) {
-            const geracaoData = await obterPokemonsPorNomeDaGeracao(geracao.nome);
-            pokemonsPorGeracao = geracaoData.pokemonsPorGeracao;
-            cache.set(chaveCache, pokemonsPorGeracao, umAnoEmSegundos);
+        for (const geracao of listaGeracoes) {
+            const chaveGeracao = `all-pokemons-by-${geracao.nome}`;
+            let pokemonsPorGeracao = cache.get(chaveGeracao);
+
+            if (!pokemonsPorGeracao) {
+                const geracaoData = await obterPokemonsPorNomeDaGeracao(geracao.nome);
+                pokemonsPorGeracao = geracaoData.pokemonsPorGeracao;
+                cache.set(chaveGeracao, pokemonsPorGeracao, umAnoEmSegundos);
+            }
+
+            if (pokemonsPorGeracao) {
+                pokemonsAgrupados[geracao.nome] = pokemonsPorGeracao;
+            }
         }
 
-        if (pokemonsPorGeracao) {
-            pokemonsAgrupadosPorGeracao[geracao.nome] = pokemonsPorGeracao;
-        }
+        cache.set(chaveCache, pokemonsAgrupados, umAnoEmSegundos);
     }
 
-    return pokemonsAgrupadosPorGeracao;
+    return pokemonsAgrupados;
 }
 
-
-export { obterListaGeracoes, obterPokemonsPorIdDaGeracao, obterPokemonsPorNomeDaGeracao, obterTodosPokemonsAgrupadosPorGeracoes };
+export {
+    obterListaGeracoes,
+    obterPokemonsPorIdDaGeracao,
+    obterPokemonsPorNomeDaGeracao,
+    obterTodosPokemonsAgrupadosPorGeracoes
+};

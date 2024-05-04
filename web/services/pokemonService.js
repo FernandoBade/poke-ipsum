@@ -5,29 +5,47 @@ import { extrairNomes } from '../utils/commons.js';
 
 dotenv.config();
 
-const cache = new NodeCache();
+const cache = new NodeCache({ stdTTL: 180 * 24 * 60 * 60 }); // 1 ano
 const pokeapiURL = `${process.env.POKEAPI_URL}pokemon/`;
 
 async function obterPokemonPorId(id) {
-    const url = `${pokeapiURL}${id}`;
-    const response = await axios.get(url);
-    if (response.data) {
-        return { nome: response.data.name };
+    const chaveCache = `pokemonPorId-${id}`;
+    let pokemon = cache.get(chaveCache);
+
+    if (!pokemon) {
+        const url = `${pokeapiURL}${id}`;
+        const response = await axios.get(url);
+        if (response.data) {
+            pokemon = { nome: response.data.name };
+            cache.set(chaveCache, pokemon);
+        } else {
+            throw new Error('Erro ao buscar Pokemon por ID');
+        }
     }
-    throw new Error('No data returned');
+
+    return pokemon;
 }
 
 async function obterPokemonPorNome(nome) {
-    const url = `${pokeapiURL}${nome}`;
-    const response = await axios.get(url);
-    if (response.data) {
-        return { nome: response.data.name };
+    const chaveCache = `pokemonPorNome-${nome}`;
+    let pokemon = cache.get(chaveCache);
+
+    if (!pokemon) {
+        const url = `${pokeapiURL}${nome}`;
+        const response = await axios.get(url);
+        if (response.data) {
+            pokemon = { nome: response.data.name };
+            cache.set(chaveCache, pokemon);
+        } else {
+            throw new Error('Erro ao buscar Pokemon por Nome');
+        }
     }
-    throw new Error('No data returned');
+
+    return pokemon;
 }
 
 async function obterTodosOsPokemons() {
-    const chaveCache = new Date().toLocaleString('pt-BR', { month: 'long', year: 'numeric' });
+    const chaveCache = 'todosOsPokemons';
     let pokemons = cache.get(chaveCache);
 
     if (!pokemons) {
@@ -35,12 +53,17 @@ async function obterTodosOsPokemons() {
         const response = await axios.get(url);
         if (response.data && response.data.results) {
             pokemons = extrairNomes(response.data.results);
-            cache.set(chaveCache, pokemons, 2592000);
+            cache.set(chaveCache, pokemons);
         } else {
-            throw new Error('No data returned');
+            throw new Error('Erro ao buscar todos os Pokémons');
         }
     }
+
     return pokemons || [];
 }
 
-export { obterPokemonPorId, obterPokemonPorNome, obterTodosOsPokemons };
+export {
+    obterPokemonPorId,
+    obterPokemonPorNome,
+    obterTodosOsPokemons
+};
