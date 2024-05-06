@@ -1,3 +1,8 @@
+<div align="center">
+  <img src="https://wakatime.com/badge/user/64a9cc47-9ca3-482a-8ae7-c3fe04fe0e14/project/018e59cd-e4f6-43ce-b901-c36d9c1cc4cf.svg" alt="fernandbade" />
+  <img src="https://komarev.com/ghpvc/?username=fernandbade&label=project%20views&color=0e75b6&style=flat" alt="fernandbade" />
+</div>
+
 ![pokeipsum](https://github.com/FernandoBade/poke-ipsum/assets/89167737/f5a7ee87-1109-4d96-a207-c9a87618aa4c)
 
 ## **[us-EN]** Poké Ipsum - Your design journey, one Pokémon at a time!
