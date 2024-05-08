@@ -38,18 +38,27 @@ With [Poké Ipsum](https://poke-ipsum.vercel.app), users can generate text simil
 - Newtonsoft.Json@13.0.3
 - Swashbuckle.AspNetCore@6.4.0
 
+---
+
 ### Installation Instructions:
 
-#### .NET Core Version:
+#### Prerequisites:
+1. .NET Core SDK: Make sure you have the .NET Core SDK installed on your machine. [Download .NET Core SDK](https://dotnet.microsoft.com/download);
+2. Node.js: Required to handle npm commands. [Download Node.js](https://nodejs.org/en/download);
+3. Visual Studio Code (Recommended): For editing and running the project smoothly. [Download VS Code](https://code.visualstudio.com/download);
+4. Clone the Repository: `git clone https://github.com/FernandoBade/poke-ipsum`
 
-The .NET Core version offers a robust and efficient approach to running Poké Ipsum. To get started, follow these steps:
+---
 
-1. Navigate to the **/web** folder;
-2. Use the configuration file **"package-dotnetcore.json"**;
-3. Install dependencies by running `npm install`;
-4. Start the backend with `npm run dev-backend`;
-5. Then, start the frontend with `npm run dev-frontend`;
-6. Finally, uncomment the respective parts on **/utils/pokeipsumAPI_dotnetcore_node,js**
+#### Direct Next.js Version (main and latest version):
+
+The direct Next.js version simplifies the process and offers a smoother user experience, specifically designed for serverless deployment on Vercel. To use it:
+
+1. Access the **/web** folder.
+2. Install dependencies by running `npm install`.
+3. Start the project by running `npm start`.
+
+---
 
 #### Node.js Server Version:
 
@@ -60,15 +69,21 @@ The Node.js Server version offers flexibility and speed for users. Follow the st
 3. Start the server with `npm start`.
 4. Start the frontend by running `npm run dev-frontend` within the **/web** folder.
 
-#### Direct Next.js Version:
+---
 
-The direct Next.js version simplifies the process and offers a smoother user experience, specifically designed for serverless deployment on Vercel. To use it:
+#### .NET Core Version:
 
-1. Access the **/web** folder.
-2. Install dependencies by running `npm install`.
-3. Start the project by running `npm start`.
+The .NET Core version offers a robust and efficient approach to running Poké Ipsum. To get started, follow these steps:
 
-&nbsp;
+1. Navigate to the .NET Core Project Directory and fing the "/web" folder: `cd web`
+
+2. Install all dependecies and start individually frontend and backend:
+- `npm install`
+- `npm run dev-backend`
+- `npm run dev-frontend`
+
+3. Additional Configuration:
+Uncomment necessary parts in `/utils/pokeipsumAPI_dotnetcore_node.js` for full functionality, and make sure to use the configuration file `package-dotnetcore.json`.
 ---
 &nbsp;
 
@@ -105,19 +120,27 @@ Com o [Poké Ipsum](https://poke-ipsum.vercel.app), os usuários podem gerar tex
 - Newtonsoft.Json@13.0.3
 - Swashbuckle.AspNetCore@6.4.0
 
+---
 
 ### Instruções de Instalação:
 
-#### Versão Dotnet Core:
+#### Pré-requisitos:
+1. .NET Core SDK: Certifique-se de ter o .NET Core SDK instalado em sua máquina. [Baixar .NET Core SDK](https://dotnet.microsoft.com/download);
+2. Node.js: Necessário para lidar com comandos npm. [Baixar Node.js](https://nodejs.org/en/download);
+3. Visual Studio Code (Recomendado): Para editar e executar o projeto com facilidade. [Baixar VS Code](https://code.visualstudio.com/download);
+4. Clonar o Repositório: `git clone https://github.com/FernandoBade/poke-ipsum`
 
-A versão Dotnet Core oferece uma abordagem robusta e eficiente para executar o Poké Ipsum. Para começar, siga estas etapas:
+---
+
+#### Versão Direta do Next.js (principal e mais recente):
+
+A versão direta do Next.js simplifica o processo e oferece uma experiência de usuário mais fluida, especialmente projetada para implantação sem servidor na Vercel. Para utilizá-la:
 
 1. Acesse a pasta **/web**.
-2. Use o arquivo de configuração **"package-dotnetcore.json"**.
-3. Instale as dependências executando `npm install`.
-4. Inicie o backend com `npm run dev-backend`.
-5. Em seguida, inicie o frontend com `npm run dev-frontend`.
-6. Por fim, descomente as partes respectivas no arquivo **/utils/pokeipsumAPI_dotnetcore_node.js**.
+2. Instale as dependências executando `npm install`.
+3. Inicie o projeto executando `npm start`.
+
+---
 
 #### Versão do Servidor Node.js:
 
@@ -128,10 +151,15 @@ A versão do Servidor Node.js oferece flexibilidade e velocidade para os usuári
 3. Inicie o servidor com `npm start`.
 4. Inicie o frontend executando `npm run dev-frontend` dentro da pasta **/web**.
 
-#### Versão Direta do Next.js:
+---
 
-A versão direta do Next.js simplifica o processo e oferece uma experiência de usuário mais fluida, especialmente projetada para implantação sem servidor na Vercel. Para utilizá-la:
+#### Versão Dotnet Core:
+A versão .NET Core oferece uma abordagem robusta e eficiente para executar o Poké Ipsum. Para começar, siga estes passos:
 
-1. Acesse a pasta **/web**.
-2. Instale as dependências executando `npm install`.
-3. Inicie o projeto executando `npm start`.
+1. Navegue até o Diretório do Projeto .NET Core e encontre a pasta "/web": `cd web`
+2. Instale todas as dependências e inicie individualmente o frontend e o backend:
+`npm install`
+`npm run dev-backend`
+`npm run dev-frontend`
+3. Configuração Adicional: Descomente as partes necessárias em `/utils/pokeipsumAPI_dotnetcore_node.js` para a funcionalidade completa, e certifique-se de usar o arquivo de configuração `package-dotnetcore.json`.
+---
