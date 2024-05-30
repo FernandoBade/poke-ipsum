@@ -19,9 +19,11 @@ export async function obterTiposElementos() {
         const tiposElementos = [{ id: 0, name: 'All types' }];
 
         data.forEach((tipoElemento, index) => {
-            tiposElementos.push({ id: index + 1, name: formatarNomeTipoElemento(tipoElemento.nome) });
+            if (tipoElemento.nome !== "unknown" && tipoElemento.nome !== "stellar" ) {
+                tiposElementos.push({ id: index + 1, name: formatarNomeTipoElemento(tipoElemento.nome) });
+            }
         });
-
+    
         const [allTypes, ...rest] = tiposElementos;
         const sortedElementos = [allTypes, ...rest.sort((a, b) => a.name.localeCompare(b.name))];
 

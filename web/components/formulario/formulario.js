@@ -163,7 +163,7 @@ export default function Formulario() {
                                             ? tiposElementosSelecionados.map((tipo) => tipo.name).join(', ')
                                             : "Select at least one type"}
                                     </Listbox.Button>
-                                    <Listbox.Options className="z-10 absolute w-full text-left bg-cor-offwhite text-cor-marrom shadow-lg max-h-60 rounded-md text-base overflow-auto focus:outline-none">
+                                    <Listbox.Options className="z-10 absolute w-full text-left bg-cor-offwhite text-cor-marrom shadow-lg max-h-52 rounded-md  overflow-auto focus:outline-none">
                                         {tiposElementos.map((tipo) => (
                                             <Listbox.Option
                                                 key={tipo.id}
@@ -204,7 +204,7 @@ export default function Formulario() {
                                             ? geracoesSelecionadas.map((geracao) => geracao.name).join(', ')
                                             : 'Select at least one generation'}
                                     </Listbox.Button>
-                                    <Listbox.Options className="z-10 absolute w-full text-left bg-cor-offwhite text-cor-marrom shadow-lg max-h-60 rounded-md overflow-auto focus:outline-none">
+                                    <Listbox.Options className="z-10 absolute w-full text-left bg-cor-offwhite text-cor-marrom shadow-lg max-h-52 rounded-md overflow-auto focus:outline-none">
                                         {geracoes.map((geracao) => (
                                             <Listbox.Option
                                                 key={geracao.id}

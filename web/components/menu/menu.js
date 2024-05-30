@@ -35,7 +35,7 @@ export default function Menu() {
                     <p className='text-cor-marrom mb-0'>If you enjoyed the project or would like more information, feel free to visit the repository <a href="https://github.com/FernandoBade/poke-ipsum" target="_blank" rel="noopener noreferrer" className="text-cor-marrom font-bold hover:text-cor-laranja no-underline transition-all ease-in-out">repository on GitHub</a>.</p>
                 </Modal.Body>
                 <Modal.Footer className='flex justify-between'>
-                    <p>Poké Ipsum v1.4 - May 2024</p>
+                    <p>Poké Ipsum v1.5 - Jun 2024</p>
 
                     <button onClick={() => setMostrarModal(false)} type="submit" className=" bg-cor-amarelo transition-all py-2 px-3 duration-150 rounded-md text-sm text-cor-marrom font-bold hover:bg-cor-amarelo hover:box-shadow-2xl hover:transition-all hover:ease-in-out hover:duration-150 hover:border-cor-amarelo hover:text-cor-laranja">
                         CLOSE
